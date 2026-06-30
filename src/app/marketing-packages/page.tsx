@@ -196,7 +196,7 @@ export default function MarketingPackagesPage() {
                 </Button>
               </Link>
               <Link href="/list-property?type=sale">
-                <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.3)", color: "#fff" }}>
+                <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.3)", color: "#fff", background: "transparent" }}>
                   View Listings <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
