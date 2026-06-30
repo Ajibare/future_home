@@ -183,7 +183,7 @@ export default function ContactPage() {
           <motion.div {...fadeInUp} className="rounded-2xl overflow-hidden shadow-soft" style={{ border: "1px solid var(--border)" }}>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.08348!2d3.4576!3d6.4478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4f4f8c7b8b5%3A0x7c8b5c4f4b4f4b4b!2s18A%20Onikepo%20Akande%20St%2C%20Lekki%20Phase%201%2C%20Lekki%2C%20Lagos!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
-              width="100%" height="450" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Future Home Properties Office Location" className="w-full" />
+              width="100%" height="450" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Future Homes Properties Office Location" className="w-full" />
           </motion.div>
         </div>
       </section>

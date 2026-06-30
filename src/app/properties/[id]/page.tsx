@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCard } from "@/components/property/property-card";
+import { GoogleMap } from "@/components/ui/google-map";
+import { PropertyCard } from "@/components/property/property-card";
 import { MOCK_PROPERTIES } from "@/services/mock-data";
 import { usePropertyStore } from "@/stores";
 import { toast } from "sonner";
@@ -188,20 +190,20 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                   </div>
                 </TabsContent>
                 <TabsContent value="location">
-                  <div className="rounded-2xl bg-light-50 dark:bg-dark-900 border border-light-200 dark:border-dark-800 p-6">
-                    <h3 className="font-semibold text-lg text-dark-900 dark:text-light-50 mb-4">Location</h3>
-                    <div className="aspect-[16/9] rounded-xl bg-light-200 dark:bg-dark-700 flex items-center justify-center mb-4">
-                      <MapPin className="h-12 w-12 text-light-400 dark:text-dark-500" />
+                  <div className="rounded-2xl border p-6" style={{ background: "var(--surface)", borderColor: "var(--border)" }}>
+                    <h3 className="font-semibold text-lg mb-4" style={{ color: "var(--text)" }}>Location</h3>
+                    <div className="aspect-[16/9] rounded-xl mb-4 overflow-hidden" style={{ border: "1px solid var(--border)" }}>
+                      <GoogleMap lat={property.location.coordinates.lat} lng={property.location.coordinates.lng} zoom={15} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} />
                     </div>
-                    <p className="text-light-600 dark:text-dark-300">{property.location.address}, {property.location.neighborhood}, {property.location.city}, {property.location.state}</p>
+                    <p style={{ color: "var(--text-secondary)" }}>{property.location.address}, {property.location.neighborhood}, {property.location.city}, {property.location.state}</p>
                     {property.nearbyPlaces && property.nearbyPlaces.length > 0 && (
                       <div className="mt-6">
-                        <h4 className="font-semibold text-sm text-dark-900 dark:text-light-50 mb-3">Nearby Places</h4>
+                        <h4 className="font-semibold text-sm mb-3" style={{ color: "var(--text)" }}>Nearby Places</h4>
                         <div className="space-y-2">
                           {property.nearbyPlaces.map((place) => (
                             <div key={place.id} className="flex items-center justify-between text-sm">
-                              <span className="text-dark-700 dark:text-light-300">{place.name}</span>
-                              <span className="text-light-500 dark:text-dark-400">{(place.distance / 1000).toFixed(1)} km</span>
+                              <span style={{ color: "var(--text)" }}>{place.name}</span>
+                              <span style={{ color: "var(--text-muted)" }}>{(place.distance / 1000).toFixed(1)} km</span>
                             </div>
                           ))}
                         </div>

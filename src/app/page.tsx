@@ -363,7 +363,7 @@ export default function HomePage() {
                 </Button>
               </Link>
               <Link href="/properties">
-                <Button size="lg" variant="outline" className="text-white hover:bg-white/10" style={{ borderColor: "rgba(255,255,255,0.3)" }}>
+                <Button size="lg" variant="outline" className="text-white hover:bg-white/10" style={{ borderColor: "rgba(255,255,255,0.3)", color: "#fff", background: "transparent" }}>
                   Browse Properties <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>

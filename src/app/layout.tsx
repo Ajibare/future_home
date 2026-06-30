@@ -28,14 +28,14 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Future Home Properties | Premium Real Estate in Nigeria",
-    template: "%s | Future Home Properties",
+title: {
+    default: "Future Homes Properties | Premium Real Estate in Nigeria",
+    template: "%s | Future Homes Properties",
   },
   description: "Discover premium real estate properties in Lagos and across Nigeria. Luxury homes, apartments, commercial spaces, and investment opportunities.",
   keywords: ["real estate", "Lagos", "Nigeria", "property", "luxury homes", "apartments", "commercial property", "investment"],
-  authors: [{ name: "Future Home Properties" }],
-  creator: "Future Home Properties",
+  authors: [{ name: "Future Homes Properties" }],
+  creator: "Future Homes Properties",
   icons: {
     icon: ASSETS.logo,
     apple: ASSETS.logo,
@@ -43,14 +43,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_NG",
-    siteName: "Future Home Properties",
-    title: "Future Home Properties | Premium Real Estate in Nigeria",
+    siteName: "Future Homes Properties",
+    title: "Future Homes Properties | Premium Real Estate in Nigeria",
     description: "Discover premium real estate properties in Lagos and across Nigeria.",
     images: [ASSETS.logo],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Future Home Properties",
+    title: "Future Homes Properties",
     description: "Premium Real Estate in Nigeria",
     images: [ASSETS.logo],
   },
@@ -84,3 +84,4 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
+

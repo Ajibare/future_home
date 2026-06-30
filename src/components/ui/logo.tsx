@@ -39,7 +39,7 @@ export function Logo({
         ) : (
           <Image
             src={ASSETS.logo}
-            alt="Future Home Properties"
+alt="Future Homes Properties"
             width={width}
             height={height}
             onError={handleError}
@@ -49,7 +49,7 @@ export function Logo({
         )}
         <div className="flex flex-col">
           <span className="font-display text-lg font-bold leading-tight text-current">
-            Future Home
+Future Homes
           </span>
           <span className="text-[10px] uppercase tracking-widest text-current opacity-70">
             Properties
@@ -73,7 +73,7 @@ export function Logo({
   ) : (
     <Image
       src={ASSETS.logo}
-      alt="Future Home Properties"
+      alt="Future Homes Properties"
       width={width}
       height={height}
       onError={handleError}

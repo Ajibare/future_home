@@ -388,7 +388,7 @@ export function LoadingScreen({ isLoading }: { isLoading: boolean }) {
             >
               <motion.img
                 src={ASSETS.logo}
-                alt="Future Home Properties"
+                alt="Future Homes Properties"
                 className="h-16 mx-auto mb-3 object-contain"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -405,7 +405,7 @@ export function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                Future Home
+Future Homes
               </motion.h1>
               <motion.p
                 className="text-sm font-medium tracking-widest uppercase"

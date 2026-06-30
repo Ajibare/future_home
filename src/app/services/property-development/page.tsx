@@ -1,0 +1,225 @@
+"use client";
+
+import * as React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  ArrowRight, Home, Key, Building2, TrendingUp, Hammer, Scale,
+  CheckCircle2, Phone, Mail, Shield, Clock, Users, Award, Wrench,
+  FileText, MapPin, Calculator, ClipboardCheck, HandshakeIcon, BarChart3, Target, PieChart, HardHat, Truck, BookOpen, Stamp, Search,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { COMPANY_INFO } from "@/constants";
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-50px" },
+  transition: { duration: 0.6, ease: "easeOut" as const },
+};
+
+const staggerContainer = {
+  initial: {},
+  whileInView: { transition: { staggerChildren: 0.1 } },
+  viewport: { once: true, margin: "-50px" },
+};
+
+interface ServicePageProps {
+  badge: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: React.ElementType;
+  features: { icon: React.ElementType; title: string; description: string }[];
+  benefits: string[];
+  process: { step: string; title: string; description: string }[];
+  ctaTitle: string;
+  ctaDescription: string;
+}
+
+function ServicePage({
+  badge,
+  title,
+  subtitle,
+  description,
+  icon: Icon,
+  features,
+  benefits,
+  process,
+  ctaTitle,
+  ctaDescription,
+}: ServicePageProps) {
+  return (
+    <div className="overflow-hidden pt-24">
+      <section className="relative py-20 md:py-28">
+        <div className="absolute inset-0">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=1080&fit=crop" alt={title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+        </div>
+        <div className="container relative z-10">
+          <motion.div {...fadeInUp} className="max-w-3xl">
+            <Badge variant="primary" className="mb-6" style={{ background: "rgba(15,157,148,0.2)", color: "#5eead4", borderColor: "rgba(15,157,148,0.3)" }}>{badge}</Badge>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-balance">{title}</h1>
+            <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl">{subtitle}</p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20" style={{ background: "var(--bg)" }}>
+        <div className="container">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div {...fadeInUp}>
+              <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center justify-center w-16 h-16 rounded-2xl" style={{ background: "var(--primary-light)" }}>
+                  <Icon className="h-8 w-8" style={{ color: "var(--primary)" }} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium" style={{ color: "var(--primary)" }}>Our Service</p>
+                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>Professional excellence</p>
+                </div>
+              </div>
+              <p className="text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>{description}</p>
+            </motion.div>
+            <motion.div {...fadeInUp}>
+              <div className="rounded-2xl overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt={title} className="w-full h-80 object-cover" />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20" style={{ background: "var(--bg-alt)" }}>
+        <div className="container">
+          <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4" style={{ color: "var(--text)" }}>What We Offer</h2>
+            <p className="text-lg" style={{ color: "var(--text-secondary)" }}>Comprehensive solutions tailored to your needs</p>
+          </motion.div>
+          <motion.div {...staggerContainer} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, i) => (
+              <motion.div key={i} {...fadeInUp}>
+                <div className="h-full rounded-2xl p-6" style={{ background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "var(--shadow-soft)" }}>
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl mb-4" style={{ background: "var(--primary-light)" }}>
+                    <feature.icon className="h-6 w-6" style={{ color: "var(--primary)" }} />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2" style={{ color: "var(--text)" }}>{feature.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20" style={{ background: "var(--bg)" }}>
+        <div className="container">
+          <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4" style={{ color: "var(--text)" }}>Why Choose Us</h2>
+          </motion.div>
+          <motion.div {...staggerContainer} className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {benefits.map((benefit, i) => (
+              <motion.div key={i} {...fadeInUp}>
+                <div className="flex items-start gap-3 p-4 rounded-xl" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
+                  <CheckCircle2 className="h-5 w-5 mt-0.5 shrink-0" style={{ color: "var(--success)" }} />
+                  <span style={{ color: "var(--text-secondary)" }}>{benefit}</span>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20" style={{ background: "var(--bg-alt)" }}>
+        <div className="container">
+          <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4" style={{ color: "var(--text)" }}>Our Process</h2>
+            <p className="text-lg" style={{ color: "var(--text-secondary)" }}>A streamlined approach to deliver exceptional results</p>
+          </motion.div>
+          <motion.div {...staggerContainer} className="grid md:grid-cols-4 gap-6">
+            {process.map((item, i) => (
+              <motion.div key={i} {...fadeInUp}>
+                <div className="text-center">
+                  <div className="flex items-center justify-center w-16 h-16 rounded-full mx-auto mb-4 text-white font-bold text-xl" style={{ background: "var(--primary)" }}>
+                    {item.step}
+                  </div>
+                  <h3 className="font-semibold mb-2" style={{ color: "var(--text)" }}>{item.title}</h3>
+                  <p className="text-sm" style={{ color: "var(--text-muted)" }}>{item.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,122,110,0.92), rgba(13,148,136,0.85))" }} />
+        </div>
+        <div className="container relative z-10">
+          <motion.div {...fadeInUp} className="max-w-2xl mx-auto text-center">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">{ctaTitle}</h2>
+            <p className="text-lg text-teal-100 mb-8">{ctaDescription}</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/contact">
+                <Button size="lg" variant="secondary" style={{ background: "#fff", color: "var(--primary)" }}>
+                  <Phone className="h-4 w-4" /> Get in Touch
+                </Button>
+              </Link>
+              <Link href="/list-property?type=sale">
+                <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.3)", color: "#fff", background: "transparent" }}>
+                  View Properties <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+const propertyDevelopmentFeatures = [
+  { icon: FileText, title: "Feasibility Studies", description: "Comprehensive analysis of development potential, costs, and returns." },
+  { icon: HardHat, title: "Project Management", description: "End-to-end management from concept to completion." },
+  { icon: Hammer, title: "Construction Oversight", description: "Quality assurance and timeline management during construction." },
+  { icon: FileText, title: "Regulatory Compliance", description: "Handling all permits, approvals, and regulatory requirements." },
+  { icon: BarChart3, title: "Budget Management", description: "Detailed cost tracking and budget optimization." },
+  { icon: Truck, title: "Material Sourcing", description: "Access to quality materials at competitive prices." },
+];
+
+const propertyDevelopmentBenefits = [
+  "Turnkey development solutions",
+  "Experienced project managers",
+  "Quality construction standards",
+  "On-time project delivery",
+  "Cost-effective solutions",
+  "Transparent reporting",
+  "Access to skilled labor",
+  "Post-completion support",
+];
+
+const propertyDevelopmentProcess = [
+  { step: "1", title: "Concept", description: "Define project scope, budget, and timeline." },
+  { step: "2", title: "Planning", description: "Architectural design and regulatory approvals." },
+  { step: "3", title: "Construction", description: "Build with quality oversight and reporting." },
+  { step: "4", title: "Delivery", description: "Final inspection, handover, and support." },
+];
+
+export default function PropertyDevelopmentPage() {
+  return (
+    <ServicePage
+      badge="Property Development"
+      title="Property Development Services"
+      subtitle="Transform your vision into reality with our expert development team."
+      description="Our property development service covers every aspect of bringing a project to life. From initial feasibility studies to final handover, we manage the entire development process with precision and expertise. Whether you're planning a residential estate, commercial complex, or mixed-use development, our team has the experience and resources to deliver projects on time and within budget. We work with the best architects, engineers, and contractors to ensure the highest standards of quality."
+      icon={Hammer}
+      features={propertyDevelopmentFeatures}
+      benefits={propertyDevelopmentBenefits}
+      process={propertyDevelopmentProcess}
+      ctaTitle="Have a Development Project in Mind?"
+      ctaDescription="Let's discuss your vision and explore how we can bring it to life with our comprehensive development services."
+    />
+  );
+}

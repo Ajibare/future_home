@@ -53,9 +53,9 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2 group">
             <Logo width={40} height={40} className="rounded-xl" />
             <div className="flex flex-col">
-              <span className="font-display text-lg font-bold leading-tight transition-colors" style={{ color: "var(--text)" }}>
-                Future Home
-              </span>
+<span className="font-display text-lg font-bold leading-tight transition-colors" style={{ color: "var(--text)" }}>
+                 Future Homes
+               </span>
               <span className="text-[10px] uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
                 Properties
               </span>

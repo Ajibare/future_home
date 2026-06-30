@@ -60,7 +60,7 @@ export default function AboutPage() {
               <Badge variant="primary" className="mb-4">Our Story</Badge>
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-6 text-balance" style={{ color: "var(--text)" }}>Building Dreams, Delivering Excellence</h2>
               <div className="space-y-4 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                <p>Future Home Properties was founded with a singular vision: to transform the real estate experience in Nigeria. What started as a small team of passionate professionals has grown into one of Lagos&apos; most trusted real estate firms.</p>
+                <p>Future Homes Properties was founded with a singular vision: to transform the real estate experience in Nigeria. What started as a small team of passionate professionals has grown into one of Lagos&apos; most trusted real estate firms.</p>
                 <p>Over the years, we have helped thousands of families find their dream homes, assisted investors in building profitable portfolios, and partnered with developers in creating iconic properties that define Lagos&apos; skyline.</p>
                 <p>Our journey is driven by a commitment to excellence, transparency, and an unwavering dedication to our clients&apos; success. Every property we represent, every deal we close, and every relationship we build is a testament to our values.</p>
               </div>
@@ -203,7 +203,7 @@ export default function AboutPage() {
                   </Button>
                 </Link>
                 <Link href="/properties">
-                  <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.3)", color: "#fff" }}>
+                  <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.3)", color: "#fff", background: "rgba(255,255,255,0.1)" }}>
                     View Properties <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>

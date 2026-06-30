@@ -146,9 +146,9 @@ export default function BuyersGuidePage() {
             <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-6 text-balance">
               The Ultimate Guide: How to Buy a Home in 2026
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-light-300">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-300">
               <span className="flex items-center gap-1.5">
-                <User className="h-4 w-4" /> Future Home Properties
+                <User className="h-4 w-4" /> Future Homes Properties
               </span>
               <span>·</span>
               <span className="flex items-center gap-1.5">
@@ -194,7 +194,7 @@ export default function BuyersGuidePage() {
                   </div>
                   {section.id === "intro" && (
                     <div className="mt-8 p-4 rounded-2xl flex flex-wrap items-center gap-x-6 gap-y-3 text-sm" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text-secondary)" }}>
-                      <span className="flex items-center gap-2"><User className="h-4 w-4" style={{ color: "var(--primary)" }} /> Future Home Properties</span>
+                      <span className="flex items-center gap-2"><User className="h-4 w-4" style={{ color: "var(--primary)" }} /> Future Homes Properties</span>
                       <span className="flex items-center gap-2"><Clock className="h-4 w-4" style={{ color: "var(--primary)" }} /> 15 min read</span>
                       <span className="flex items-center gap-2"><Eye className="h-4 w-4" style={{ color: "var(--primary)" }} /> Premium Guide</span>
                       <span className="flex items-center gap-2"><Calendar className="h-4 w-4" style={{ color: "var(--primary)" }} /> Updated 2026</span>
@@ -249,7 +249,7 @@ export default function BuyersGuidePage() {
                 </Button>
               </Link>
               <a href={`tel:${COMPANY_INFO.phone}`}>
-                <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.4)", color: "#fff" }}>
+                <Button size="lg" variant="outline" style={{ borderColor: "transparent", color: "#fff", background: "rgba(255,255,255,0.1)" }}>
                   <Phone className="h-4 w-4" />
                   {COMPANY_INFO.phone}
                 </Button>

@@ -45,7 +45,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3 group">
               <Logo width={48} height={48} />
               <div className="flex flex-col">
-                <span className="font-display text-xl font-bold" style={{ color: "var(--text)" }}>Future Home</span>
+                <span className="font-display text-xl font-bold" style={{ color: "var(--text)" }}>Future Homes</span>
                 <span className="text-xs uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>Properties</span>
               </div>
             </Link>
@@ -135,7 +135,7 @@ export function Footer() {
       <div style={{ borderTop: "1px solid var(--border)" }}>
         <div className="container py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            &copy; {currentYear} Future Home Properties. All rights reserved.
+            &copy; {currentYear} Future Homes Properties. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {FOOTER_LINKS.legal.map((link) => (

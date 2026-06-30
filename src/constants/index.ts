@@ -209,13 +209,13 @@ export const INQUIRY_TYPES = [
 ] as const;
 
 export const COMPANY_INFO = {
-  name: "Future Home Properties",
+  name: "Future Homes Properties",
   tagline: "Your Dream Home Awaits",
   description: "It will interest you to know that we are ever near you. Your comfort matters so much to our business and we are dedicated to serving you.",
   address: "18A Onikepo Akande Street, Lekki Phase 1, Lagos, Nigeria",
   phone: "+234 708 806 5449",
   phone2: "+234 808 888 0708",
-  email: "info@futurehome.com",
+  email: "info@futurehomes.com",
   whatsapp: "+234 808 888 0708",
   hours: {
     weekdays: "8:00 AM - 6:00 PM",
@@ -223,11 +223,11 @@ export const COMPANY_INFO = {
     sunday: "Closed",
   },
   social: {
-    facebook: "https://facebook.com/futurehome",
-    twitter: "https://twitter.com/futurehome",
-    instagram: "https://instagram.com/futurehome",
-    linkedin: "https://linkedin.com/company/futurehome",
-    youtube: "https://youtube.com/futurehome",
+    facebook: "https://facebook.com/futurehomes",
+    twitter: "https://twitter.com/futurehomes",
+    instagram: "https://instagram.com/futurehomes",
+    linkedin: "https://linkedin.com/company/futurehomes",
+    youtube: "https://youtube.com/futurehomes",
   },
 } as const;
 
@@ -250,7 +250,7 @@ export const TEAM_MEMBERS: Array<{
     role: "MD/CEO",
     bio: "Visionary leader with over 20 years of experience in real estate development and property management. Edwin has successfully delivered numerous landmark projects across Nigeria.",
     image: "/images/team/edwin-agbodu.jpg",
-    email: "edwin@futurehome.com",
+    email: "edwin@futurehomes.com",
     phone: "+234 800 123 4567",
     linkedin: "https://linkedin.com/in/edwinagbodu",
     twitter: "https://twitter.com/edwinagbodu",
@@ -263,7 +263,7 @@ export const TEAM_MEMBERS: Array<{
     role: "Legal Adviser",
     bio: "Seasoned legal practitioner specializing in property law, conveyancing, and real estate transactions. Femi ensures all our deals are legally sound and compliant.",
     image: "/images/team/femi-sanni.jpg",
-    email: "femi@futurehome.com",
+    email: "femi@futurehomes.com",
     phone: "+234 800 123 4568",
     linkedin: "https://linkedin.com/in/femisanni",
     order: 2,
@@ -274,7 +274,7 @@ export const TEAM_MEMBERS: Array<{
     role: "Relationship Manager",
     bio: "Client-focused professional dedicated to building lasting relationships. Damilola ensures every client receives personalized service throughout their property journey.",
     image: "/images/team/damilola-ashamu.jpg",
-    email: "damilola@futurehome.com",
+    email: "damilola@futurehomes.com",
     phone: "+234 800 123 4569",
     linkedin: "https://linkedin.com/in/damilolaashamu",
     instagram: "https://instagram.com/damilolaashamu",
@@ -286,7 +286,7 @@ export const TEAM_MEMBERS: Array<{
     role: "General Manager",
     bio: "Operations expert with a keen eye for detail. Precious oversees daily operations, ensuring seamless service delivery and operational excellence across all departments.",
     image: "/images/team/precious-aghazie.jpg",
-    email: "precious@futurehome.com",
+    email: "precious@futurehomes.com",
     phone: "+234 800 123 4570",
     linkedin: "https://linkedin.com/in/preciousaghazie",
     twitter: "https://twitter.com/preciousaghazie",

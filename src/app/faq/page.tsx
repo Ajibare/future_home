@@ -237,7 +237,7 @@ export default function FAQPage() {
             <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-6 text-balance">
               Real Estate Answers You Can Trust
             </h1>
-            <p className="text-lg text-light-300 leading-relaxed">
+            <p className="text-lg text-gray-300 leading-relaxed">
               Clear, professional guidance for buyers, sellers, tenants and investors across the Nigerian real estate market.
             </p>
           </motion.div>
@@ -314,7 +314,7 @@ export default function FAQPage() {
                 </Button>
               </Link>
               <a href={`tel:${COMPANY_INFO.phone}`}>
-                <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.4)", color: "#fff" }}>
+                <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.4)", color: "#fff", background: "rgba(255,255,255,0.1)" }}>
                   <Phone className="h-4 w-4" />
                   {COMPANY_INFO.phone}
                 </Button>
