@@ -4,7 +4,7 @@ import * as React from "react";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Filter, Grid3X3, List, SlidersHorizontal, Search, ArrowUpDown } from "lucide-react";
+import { Filter, Grid3X3, List, SlidersHorizontal, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,7 +41,6 @@ function PropertiesContent() {
   const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid");
   const [isFilterOpen, setIsFilterOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
-
   const [filters, setFilters] = React.useState<SearchFilters>({
     listingType: (searchParams.get("listingType") as ListingType) || "sale",
     propertyTypes: searchParams.get("type") ? [searchParams.get("type") as PropertyType] : undefined,
@@ -83,38 +82,48 @@ function PropertiesContent() {
   const FilterSidebar = () => (
     <div className="space-y-6">
       <div>
-        <h3 className="font-semibold text-sm text-dark-900 dark:text-light-50 mb-3">Listing Type</h3>
+        <h3 className="font-semibold text-sm mb-3" style={{ color: "var(--text)" }}>Listing Type</h3>
         <div className="flex gap-2">
           {(["sale", "rent"] as const).map((type) => (
-            <button key={type} onClick={() => updateFilter("listingType", type)} className={cn("flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all", filters.listingType === type ? "bg-primary-700 text-white" : "bg-light-100 dark:bg-dark-800 text-dark-700 dark:text-light-300 hover:bg-light-200 dark:hover:bg-dark-700")}>
+            <button
+              key={type}
+              onClick={() => updateFilter("listingType", type)}
+              className={cn("flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all")}
+              style={filters.listingType === type ? { background: "var(--primary)", color: "#fff" } : { background: "var(--surface)", color: "var(--text-secondary)", border: "1px solid var(--border)" }}
+            >
               {type === "sale" ? "For Sale" : "For Rent"}
             </button>
           ))}
         </div>
       </div>
       <div>
-        <h3 className="font-semibold text-sm text-dark-900 dark:text-light-50 mb-3">Property Type</h3>
+        <h3 className="font-semibold text-sm mb-3" style={{ color: "var(--text)" }}>Property Type</h3>
         <div className="space-y-2">
           {propertyTypes.map((type) => (
             <label key={type.value} className="flex items-center gap-3 cursor-pointer group">
-              <input type="checkbox" checked={filters.propertyTypes?.includes(type.value as PropertyType) || false} onChange={(e) => { const current = filters.propertyTypes || []; const next = e.target.checked ? [...current, type.value as PropertyType] : current.filter((t) => t !== type.value); updateFilter("propertyTypes", next.length > 0 ? next : undefined); }} className="w-4 h-4 rounded border-light-300 text-primary-700 focus:ring-primary-500" />
-              <span className="text-sm text-dark-700 dark:text-light-300 group-hover:text-primary-700 dark:group-hover:text-primary-400">{type.label}</span>
+              <input type="checkbox" checked={filters.propertyTypes?.includes(type.value as PropertyType) || false} onChange={(e) => { const current = filters.propertyTypes || []; const next = e.target.checked ? [...current, type.value as PropertyType] : current.filter((t) => t !== type.value); updateFilter("propertyTypes", next.length > 0 ? next : undefined); }} className="w-4 h-4 rounded" style={{ accentColor: "var(--primary)" }} />
+              <span className="text-sm" style={{ color: "var(--text-secondary)" }}>{type.label}</span>
             </label>
           ))}
         </div>
       </div>
       <div>
-        <h3 className="font-semibold text-sm text-dark-900 dark:text-light-50 mb-3">Bedrooms</h3>
+        <h3 className="font-semibold text-sm mb-3" style={{ color: "var(--text)" }}>Bedrooms</h3>
         <div className="flex flex-wrap gap-2">
           {[1, 2, 3, 4, 5].map((num) => (
-            <button key={num} onClick={() => updateFilter("minBedrooms", filters.minBedrooms === num ? undefined : num)} className={cn("px-4 py-2 rounded-xl text-sm font-medium transition-all", filters.minBedrooms === num ? "bg-primary-700 text-white" : "bg-light-100 dark:bg-dark-800 text-dark-700 dark:text-light-300 hover:bg-light-200")}>
+            <button
+              key={num}
+              onClick={() => updateFilter("minBedrooms", filters.minBedrooms === num ? undefined : num)}
+              className="px-4 py-2 rounded-xl text-sm font-medium transition-all"
+              style={filters.minBedrooms === num ? { background: "var(--primary)", color: "#fff" } : { background: "var(--surface)", color: "var(--text-secondary)", border: "1px solid var(--border)" }}
+            >
               {num}+
             </button>
           ))}
         </div>
       </div>
       <div>
-        <h3 className="font-semibold text-sm text-dark-900 dark:text-light-50 mb-3">Price Range</h3>
+        <h3 className="font-semibold text-sm mb-3" style={{ color: "var(--text)" }}>Price Range</h3>
         <div className="grid grid-cols-2 gap-3">
           <Input type="number" placeholder="Min price" value={filters.minPrice || ""} onChange={(e) => updateFilter("minPrice", e.target.value ? parseInt(e.target.value) : undefined)} className="h-10 text-sm" />
           <Input type="number" placeholder="Max price" value={filters.maxPrice || ""} onChange={(e) => updateFilter("maxPrice", e.target.value ? parseInt(e.target.value) : undefined)} className="h-10 text-sm" />
@@ -125,20 +134,20 @@ function PropertiesContent() {
   );
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-light-50 dark:bg-dark-950">
+    <div className="min-h-screen pt-24 pb-16" style={{ background: "var(--bg-alt)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-dark-900 dark:text-light-50 mb-2">
+          <h1 className="font-display text-3xl md:text-4xl font-bold mb-2" style={{ color: "var(--text)" }}>
             {filters.listingType === "sale" ? "Properties for Sale" : "Properties for Rent"}
           </h1>
-          <p className="text-light-600 dark:text-dark-300">{filteredProperties.length} properties found</p>
+          <p style={{ color: "var(--text-muted)" }}>{filteredProperties.length} properties found</p>
         </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           <aside className="hidden lg:block w-72 shrink-0">
-            <div className="sticky top-28 rounded-2xl bg-white dark:bg-dark-800 border border-light-200 dark:border-dark-700 p-6 shadow-soft">
+            <div className="sticky top-28 rounded-2xl p-6 shadow-soft" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
               <div className="flex items-center justify-between mb-6">
-                <h2 className="font-semibold text-dark-900 dark:text-light-50 flex items-center gap-2">
+                <h2 className="font-semibold flex items-center gap-2" style={{ color: "var(--text)" }}>
                   <SlidersHorizontal className="h-4 w-4" />Filters
                 </h2>
               </div>
@@ -147,18 +156,22 @@ function PropertiesContent() {
           </aside>
 
           <div className="flex-1 min-w-0">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 rounded-2xl bg-white dark:bg-dark-800 border border-light-200 dark:border-dark-700 p-4 shadow-soft">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 rounded-2xl p-4 shadow-soft" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
               <div className="flex items-center gap-3 w-full sm:w-auto">
-                <button onClick={() => setIsFilterOpen(true)} className="lg:hidden flex items-center gap-2 px-4 py-2 rounded-xl bg-light-100 dark:bg-dark-700 text-dark-700 dark:text-light-300 text-sm font-medium hover:bg-light-200 dark:hover:bg-dark-600 transition-colors">
+                <button
+                  onClick={() => setIsFilterOpen(true)}
+                  className="lg:hidden flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors"
+                  style={{ background: "var(--surface-hover)", color: "var(--text-secondary)" }}
+                >
                   <Filter className="h-4 w-4" />Filters
                 </button>
                 <Select options={sortOptions} value={filters.sortBy || "newest"} onChange={(v) => updateFilter("sortBy", v as SortOption)} className="w-full sm:w-48" />
               </div>
               <div className="flex items-center gap-3">
                 <Badge variant="primary">{filteredProperties.length} results</Badge>
-                <div className="flex items-center bg-light-100 dark:bg-dark-700 rounded-xl p-1">
-                  <button onClick={() => setViewMode("grid")} className={cn("p-2 rounded-lg transition-all", viewMode === "grid" ? "bg-white dark:bg-dark-600 shadow-soft text-primary-700 dark:text-primary-400" : "text-light-500 dark:text-dark-400")} aria-label="Grid view"><Grid3X3 className="h-4 w-4" /></button>
-                  <button onClick={() => setViewMode("list")} className={cn("p-2 rounded-lg transition-all", viewMode === "list" ? "bg-white dark:bg-dark-600 shadow-soft text-primary-700 dark:text-primary-400" : "text-light-500 dark:text-dark-400")} aria-label="List view"><List className="h-4 w-4" /></button>
+                <div className="flex items-center rounded-xl p-1" style={{ background: "var(--surface-hover)" }}>
+                  <button onClick={() => setViewMode("grid")} className="p-2 rounded-lg transition-all" style={viewMode === "grid" ? { background: "var(--surface)", boxShadow: "var(--shadow-soft)", color: "var(--primary)" } : { color: "var(--text-muted)" }} aria-label="Grid view"><Grid3X3 className="h-4 w-4" /></button>
+                  <button onClick={() => setViewMode("list")} className="p-2 rounded-lg transition-all" style={viewMode === "list" ? { background: "var(--surface)", boxShadow: "var(--shadow-soft)", color: "var(--primary)" } : { color: "var(--text-muted)" }} aria-label="List view"><List className="h-4 w-4" /></button>
                 </div>
               </div>
             </motion.div>
@@ -168,9 +181,9 @@ function PropertiesContent() {
                 <SkeletonPropertyGrid count={6} />
               ) : filteredProperties.length === 0 ? (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-20">
-                  <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 rounded-full bg-light-100 dark:bg-dark-800"><Search className="h-8 w-8 text-light-400" /></div>
-                  <h3 className="font-display text-xl font-semibold text-dark-900 dark:text-light-50 mb-2">No properties found</h3>
-                  <p className="text-light-500 dark:text-dark-400 mb-6">Try adjusting your filters to see more results.</p>
+                  <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 rounded-full" style={{ background: "var(--surface-hover)" }}><Search className="h-8 w-8" style={{ color: "var(--text-muted)" }} /></div>
+                  <h3 className="font-display text-xl font-semibold mb-2" style={{ color: "var(--text)" }}>No properties found</h3>
+                  <p className="mb-6" style={{ color: "var(--text-muted)" }}>Try adjusting your filters to see more results.</p>
                   <Button onClick={() => setFilters({ listingType: "sale", page: 1, limit: 12, sortBy: "newest" })}>Clear Filters</Button>
                 </motion.div>
               ) : (
@@ -189,7 +202,7 @@ function PropertiesContent() {
 
       <Drawer open={isFilterOpen} onClose={() => setIsFilterOpen(false)} position="left">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="font-semibold text-lg text-dark-900 dark:text-light-50">Filters</h2>
+          <h2 className="font-semibold text-lg" style={{ color: "var(--text)" }}>Filters</h2>
           <Badge variant="primary">{filteredProperties.length} results</Badge>
         </div>
         <FilterSidebar />
@@ -200,7 +213,7 @@ function PropertiesContent() {
 
 export default function PropertiesPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen pt-24 pb-16 bg-light-50 dark:bg-dark-950"><div className="container"><div className="animate-pulse h-96 rounded-2xl bg-light-200 dark:bg-dark-700" /></div></div>}>
+    <Suspense fallback={<div className="min-h-screen pt-24 pb-16" style={{ background: "var(--bg-alt)" }}><div className="container"><div className="animate-pulse h-96 rounded-2xl" style={{ background: "var(--surface-hover)" }} /></div></div>}>
       <PropertiesContent />
     </Suspense>
   );

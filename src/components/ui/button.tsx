@@ -4,16 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97] relative overflow-hidden",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97] relative overflow-hidden",
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-primary-700 to-primary-600 text-white shadow-soft hover:shadow-glow hover:from-primary-800 hover:to-primary-700",
-        destructive: "bg-gradient-to-r from-red-600 to-red-500 text-white shadow-soft hover:shadow-medium",
-        outline: "border border-light-300 bg-white/50 backdrop-blur-sm hover:bg-light-100 hover:border-light-400",
-        secondary: "bg-light-100/80 backdrop-blur-sm text-dark-900 hover:bg-light-200 border border-light-200/50",
-        ghost: "hover:bg-light-100/60 backdrop-blur-sm",
-        link: "text-primary-700 underline-offset-4 hover:underline",
+        default: "btn-default text-white shadow-soft",
+        destructive: "bg-red-600 text-white shadow-soft hover:bg-red-700",
+        outline: "btn-outline",
+        secondary: "btn-secondary",
+        ghost: "hover:bg-surface-hover text-text-secondary",
+        link: "text-primary underline-offset-4 hover:underline",
         glass: "glass-card hover:shadow-medium",
       },
       size: {

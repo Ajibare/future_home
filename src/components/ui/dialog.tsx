@@ -44,15 +44,17 @@ const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
         />
         <div
           className={cn(
-            "relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-large animate-scale-in dark:bg-dark-800",
+            "relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl p-6 shadow-large animate-scale-in",
             className
           )}
+          style={{ background: "var(--surface)" }}
           role="dialog"
           aria-modal="true"
         >
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 rounded-full p-2 text-light-500 hover:bg-light-100 hover:text-dark-900 transition-colors dark:text-dark-400 dark:hover:bg-dark-700 dark:hover:text-light-50"
+            className="absolute right-4 top-4 rounded-full p-2 transition-colors"
+            style={{ color: "var(--text-muted)" }}
             aria-label="Close dialog"
           >
             <X className="h-5 w-5" />

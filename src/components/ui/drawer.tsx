@@ -51,19 +51,21 @@ const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
         />
         <div
           className={cn(
-            "absolute bg-white shadow-large dark:bg-dark-800",
+            "absolute shadow-large",
             positionClasses[position],
             position === "bottom" && "rounded-t-3xl",
             (position === "left" || position === "right") && "rounded-r-3xl",
             className
           )}
+          style={{ background: "var(--surface)" }}
           role="dialog"
           aria-modal="true"
         >
           {showClose && (
             <button
               onClick={onClose}
-              className="absolute right-4 top-4 z-10 rounded-full p-2 text-light-500 hover:bg-light-100 hover:text-dark-900 transition-colors dark:text-dark-400 dark:hover:bg-dark-700 dark:hover:text-light-50"
+              className="absolute right-4 top-4 z-10 rounded-full p-2 transition-colors"
+              style={{ color: "var(--text-muted)" }}
               aria-label="Close drawer"
             >
               <X className="h-5 w-5" />

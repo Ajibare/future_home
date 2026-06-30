@@ -474,8 +474,6 @@ export const NAVIGATION_ITEMS = [
     children: [
       { label: "About Us", href: "/about" },
       { label: "Our Team", href: "/about#team" },
-      { label: "Careers", href: "/careers" },
-      { label: "Press & Media", href: "/press" },
     ],
   },
   {
@@ -483,8 +481,7 @@ export const NAVIGATION_ITEMS = [
     href: "/blog",
     children: [
       { label: "Blog", href: "/blog" },
-      { label: "Market Reports", href: "/market-reports" },
-      { label: "Guides", href: "/guides" },
+      { label: "Buyer's Guide", href: "/guides" },
       { label: "FAQ", href: "/faq" },
     ],
   },
@@ -494,8 +491,6 @@ export const FOOTER_LINKS = {
   company: [
     { label: "About Us", href: "/about" },
     { label: "Our Team", href: "/about#team" },
-    { label: "Careers", href: "/careers" },
-    { label: "Press", href: "/press" },
     { label: "Contact", href: "/contact" },
   ],
   buy: [
@@ -517,8 +512,7 @@ export const FOOTER_LINKS = {
   ],
   resources: [
     { label: "Blog", href: "/blog" },
-    { label: "Market Reports", href: "/market-reports" },
-    { label: "Property Guides", href: "/guides" },
+    { label: "Buyer's Guide", href: "/guides" },
     { label: "FAQ", href: "/faq" },
     { label: "Property Valuation", href: "/valuation" },
   ],

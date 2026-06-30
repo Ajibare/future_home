@@ -1,30 +1,31 @@
 "use client";
 
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { type ReactNode, useEffect } from "react";
 import { useThemeStore } from "@/stores";
 
-function ThemeSync({ children }: { children: ReactNode }) {
-  const { setTheme: setNextTheme } = useTheme();
+function getSystemTheme(): "light" | "dark" {
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function ThemeApply({ children }: { children: ReactNode }) {
   const { theme, setTheme } = useThemeStore();
 
-  // Sync Zustand -> next-themes
   useEffect(() => {
-    setNextTheme(theme);
-  }, [theme, setNextTheme]);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const hasUserSetTheme = localStorage.getItem("theme-store");
+    if (!hasUserSetTheme) {
+      const systemTheme = getSystemTheme();
+      setTheme(systemTheme);
+    }
+  }, [setTheme]);
 
   return <>{children}</>;
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="light"
-      enableSystem={false}
-      disableTransitionOnChange={false}
-    >
-      <ThemeSync>{children}</ThemeSync>
-    </NextThemesProvider>
-  );
+  return <ThemeApply>{children}</ThemeApply>;
 }

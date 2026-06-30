@@ -4,7 +4,6 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Heart, Trash2, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { PropertyCard } from "@/components/property/property-card";
 import { usePropertyStore } from "@/stores";
@@ -21,20 +20,20 @@ export default function WishlistPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-light-50 dark:bg-dark-950">
+    <div className="min-h-screen pt-24 pb-16" style={{ background: "var(--bg-alt)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-dark-900 dark:text-light-50 mb-2">My Wishlist</h1>
-          <p className="text-light-600 dark:text-dark-300">{wishlistProperties.length} saved properties</p>
+          <h1 className="font-display text-3xl md:text-4xl font-bold mb-2" style={{ color: "var(--text)" }}>My Wishlist</h1>
+          <p style={{ color: "var(--text-secondary)" }}>{wishlistProperties.length} saved properties</p>
         </motion.div>
 
         {wishlistProperties.length === 0 ? (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-20">
-            <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 rounded-full bg-light-100 dark:bg-dark-800">
-              <Heart className="h-8 w-8 text-light-400" />
+            <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 rounded-full" style={{ background: "var(--surface-hover)" }}>
+              <Heart className="h-8 w-8" style={{ color: "var(--text-muted)" }} />
             </div>
-            <h3 className="font-display text-xl font-semibold text-dark-900 dark:text-light-50 mb-2">No saved properties</h3>
-            <p className="text-light-500 dark:text-dark-400 mb-6">Start browsing and save properties you love!</p>
+            <h3 className="font-display text-xl font-semibold mb-2" style={{ color: "var(--text)" }}>No saved properties</h3>
+            <p className="mb-6" style={{ color: "var(--text-muted)" }}>Start browsing and save properties you love!</p>
             <Link href="/properties"><Button size="lg">Browse Properties<ArrowRight className="h-4 w-4" /></Button></Link>
           </motion.div>
         ) : (
@@ -42,7 +41,7 @@ export default function WishlistPage() {
             {wishlistProperties.map((property, i) => (
               <motion.div key={property.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="relative group">
                 <PropertyCard property={property} />
-                <button onClick={() => handleRemove(property.id)} className="absolute top-14 right-3 z-10 flex items-center justify-center w-9 h-9 rounded-full bg-white/90 dark:bg-dark-800/90 text-red-500 opacity-0 group-hover:opacity-100 transition-all shadow-soft hover:scale-110" aria-label="Remove from wishlist">
+                <button onClick={() => handleRemove(property.id)} className="absolute top-14 right-3 z-10 flex items-center justify-center w-9 h-9 rounded-full opacity-0 group-hover:opacity-100 transition-all shadow-soft hover:scale-110" style={{ background: "var(--surface)", color: "var(--danger)" }} aria-label="Remove from wishlist">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </motion.div>

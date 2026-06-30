@@ -53,7 +53,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
 
     return (
       <AccordionContext.Provider value={{ openItems, toggle, type }}>
-        <div ref={ref} className={cn("divide-y divide-light-200 dark:divide-dark-700", className)}>
+        <div ref={ref} className={cn("divide-y", className)} style={{ borderColor: "var(--border)" }}>
           {children}
         </div>
       </AccordionContext.Provider>
@@ -103,17 +103,18 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerPro
         aria-expanded={isOpen}
         className={cn(
           "flex w-full items-center justify-between py-4 text-left font-medium transition-all duration-200",
-          "hover:text-primary-700 dark:hover:text-primary-400",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-lg",
+          "hover:text-[var(--primary)]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] rounded-lg",
           className
         )}
       >
         <span>{children}</span>
         <ChevronDown
           className={cn(
-            "h-5 w-5 text-light-500 transition-transform duration-300",
+            "h-5 w-5 transition-transform duration-300",
             isOpen && "rotate-180"
           )}
+          style={{ color: "var(--text-muted)" }}
         />
       </button>
     );
@@ -140,7 +141,7 @@ const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         )}
       >
-        <div className={cn("pb-4 text-light-600 dark:text-dark-300", className)}>
+        <div className={cn("pb-4", className)} style={{ color: "var(--text-secondary)" }}>
           {children}
         </div>
       </div>

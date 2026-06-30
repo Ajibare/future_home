@@ -7,9 +7,10 @@ const Skeleton = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
       <div
         ref={ref}
         className={cn(
-          "animate-pulse rounded-xl bg-light-200 dark:bg-dark-700",
+          "animate-pulse rounded-xl",
           className
         )}
+        style={{ background: "var(--surface-hover)" }}
         {...props}
       />
     );

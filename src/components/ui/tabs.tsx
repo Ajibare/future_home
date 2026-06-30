@@ -58,9 +58,10 @@ const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
         ref={ref}
         role="tablist"
         className={cn(
-          "inline-flex items-center gap-1 rounded-xl bg-light-100 p-1 dark:bg-dark-800",
+          "inline-flex items-center gap-1 rounded-xl p-1",
           className
         )}
+        style={{ background: "var(--surface-hover)" }}
       >
         {children}
       </div>
@@ -91,13 +92,11 @@ const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
         onClick={() => setActiveTab(value)}
         className={cn(
           "inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]",
           "disabled:pointer-events-none disabled:opacity-50",
-          isActive
-            ? "bg-white text-dark-900 shadow-soft dark:bg-dark-700 dark:text-light-50"
-            : "text-light-600 hover:text-dark-900 dark:text-dark-400 dark:hover:text-light-50",
           className
         )}
+        style={isActive ? { background: "var(--surface)", color: "var(--text)", boxShadow: "var(--shadow-soft)" } : { color: "var(--text-muted)" }}
       >
         {children}
       </button>

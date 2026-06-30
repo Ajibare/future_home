@@ -63,6 +63,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme-store');if(t){var p=JSON.parse(t);var th=p&&p.state&&p.state.theme;if(th==='dark'||th==='light'){document.documentElement.setAttribute('data-theme',th);}}else{var sys=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',sys);}}catch(e){document.documentElement.setAttribute('data-theme','light');}})()`,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} min-h-screen flex flex-col antialiased`}>
         <RootProviders>
           <LoadingProvider>
