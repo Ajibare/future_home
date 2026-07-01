@@ -15,7 +15,6 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCard } from "@/components/property/property-card";
 import { GoogleMap } from "@/components/ui/google-map";
-import { PropertyCard } from "@/components/property/property-card";
 import { MOCK_PROPERTIES } from "@/services/mock-data";
 import { usePropertyStore } from "@/stores";
 import { toast } from "sonner";
@@ -193,7 +192,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                   <div className="rounded-2xl border p-6" style={{ background: "var(--surface)", borderColor: "var(--border)" }}>
                     <h3 className="font-semibold text-lg mb-4" style={{ color: "var(--text)" }}>Location</h3>
                     <div className="aspect-[16/9] rounded-xl mb-4 overflow-hidden" style={{ border: "1px solid var(--border)" }}>
-                      <GoogleMap lat={property.location.coordinates.lat} lng={property.location.coordinates.lng} zoom={15} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} />
+                      <GoogleMap lat={property.location.coordinates?.lat ?? 0} lng={property.location.coordinates?.lng ?? 0} zoom={15} apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} />
                     </div>
                     <p style={{ color: "var(--text-secondary)" }}>{property.location.address}, {property.location.neighborhood}, {property.location.city}, {property.location.state}</p>
                     {property.nearbyPlaces && property.nearbyPlaces.length > 0 && (
