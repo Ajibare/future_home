@@ -56,10 +56,10 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
   const activeAmenities = Object.entries(property.amenities).filter(([, v]) => v).map(([k]) => k);
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-dark-950">
+    <div className="min-h-screen pt-24 pb-16" style={{ background: "var(--bg)" }}>
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <Link href="/properties" className="inline-flex items-center gap-2 text-sm text-light-500 dark:text-dark-400 hover:text-primary-700 dark:hover:text-primary-400 mb-6 transition-colors">
+          <Link href="/properties" className="inline-flex items-center gap-2 text-sm mb-6 transition-colors" style={{ color: "var(--text-muted)" }}>
             <ArrowLeft className="h-4 w-4" />
             Back to Properties
           </Link>
@@ -72,14 +72,14 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="relative rounded-2xl overflow-hidden">
               <div className="relative aspect-[16/10] cursor-pointer" onClick={() => setIsLightboxOpen(true)}>
                 <img src={property.images[currentImage].url} alt={property.images[currentImage].alt} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-950/30 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                 <div className="absolute top-4 left-4 flex gap-2">
                   <Badge variant={property.status === "for-sale" ? "primary" : "info"} className="text-sm px-3 py-1.5">
                     {property.status.replace("-", " ")}
                   </Badge>
                   {property.isFeatured && <Badge variant="featured" className="text-sm px-3 py-1.5">Featured</Badge>}
                 </div>
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 text-white text-sm bg-dark-950/50 backdrop-blur-md rounded-full px-3 py-1.5">
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 text-white text-sm bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5">
                   <Eye className="h-4 w-4" />
                   {property.images.length} photos
                 </div>
@@ -110,9 +110,9 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
               <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                 <div>
-                  <h1 className="font-display text-2xl md:text-3xl font-bold text-dark-900 dark:text-light-50 mb-2">{property.title}</h1>
-                  <p className="flex items-center gap-1.5 text-light-500 dark:text-dark-400">
-                    <MapPin className="h-4 w-4 text-primary-500" />
+                  <h1 className="font-display text-2xl md:text-3xl font-bold mb-2" style={{ color: "var(--text)" }}>{property.title}</h1>
+                  <p className="flex items-center gap-1.5" style={{ color: "var(--text-muted)" }}>
+                    <MapPin className="h-4 w-4" style={{ color: "var(--primary)" }} />
                     {property.location.address}, {property.location.neighborhood}, {property.location.city}
                   </p>
                 </div>
@@ -129,33 +129,33 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-6 py-4 border-y border-light-100 dark:border-dark-800">
+              <div className="flex flex-wrap items-center gap-6 py-4 border-y" style={{ borderColor: "var(--border)" }}>
                 {property.features.bedrooms > 0 && (
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400"><Bed className="h-5 w-5" /></div>
-                    <div><p className="font-semibold text-dark-900 dark:text-light-50">{property.features.bedrooms}</p><p className="text-xs text-light-500 dark:text-dark-400">Bedrooms</p></div>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl" style={{ background: "var(--primary-light)", color: "var(--primary-text)" }}><Bed className="h-5 w-5" /></div>
+                    <div><p className="font-semibold" style={{ color: "var(--text)" }}>{property.features.bedrooms}</p><p className="text-xs" style={{ color: "var(--text-muted)" }}>Bedrooms</p></div>
                   </div>
                 )}
                 {property.features.bathrooms > 0 && (
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400"><Bath className="h-5 w-5" /></div>
-                    <div><p className="font-semibold text-dark-900 dark:text-light-50">{property.features.bathrooms}</p><p className="text-xs text-light-500 dark:text-dark-400">Bathrooms</p></div>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl" style={{ background: "var(--primary-light)", color: "var(--primary-text)" }}><Bath className="h-5 w-5" /></div>
+                    <div><p className="font-semibold" style={{ color: "var(--text)" }}>{property.features.bathrooms}</p><p className="text-xs" style={{ color: "var(--text-muted)" }}>Bathrooms</p></div>
                   </div>
                 )}
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400"><Maximize className="h-5 w-5" /></div>
-                  <div><p className="font-semibold text-dark-900 dark:text-light-50">{property.features.area.toLocaleString()}</p><p className="text-xs text-light-500 dark:text-dark-400">{property.features.areaUnit}</p></div>
+                  <div className="flex items-center justify-center w-10 h-10 rounded-xl" style={{ background: "var(--primary-light)", color: "var(--primary-text)" }}><Maximize className="h-5 w-5" /></div>
+                  <div><p className="font-semibold" style={{ color: "var(--text)" }}>{property.features.area.toLocaleString()}</p><p className="text-xs" style={{ color: "var(--text-muted)" }}>{property.features.areaUnit}</p></div>
                 </div>
                 {property.features.parkingSpaces > 0 && (
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400"><Car className="h-5 w-5" /></div>
-                    <div><p className="font-semibold text-dark-900 dark:text-light-50">{property.features.parkingSpaces}</p><p className="text-xs text-light-500 dark:text-dark-400">Parking</p></div>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl" style={{ background: "var(--primary-light)", color: "var(--primary-text)" }}><Car className="h-5 w-5" /></div>
+                    <div><p className="font-semibold" style={{ color: "var(--text)" }}>{property.features.parkingSpaces}</p><p className="text-xs" style={{ color: "var(--text-muted)" }}>Parking</p></div>
                   </div>
                 )}
                 {property.features.yearBuilt && property.features.yearBuilt > 0 && (
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-400"><Calendar className="h-5 w-5" /></div>
-                    <div><p className="font-semibold text-dark-900 dark:text-light-50">{property.features.yearBuilt}</p><p className="text-xs text-light-500 dark:text-dark-400">Year Built</p></div>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-xl" style={{ background: "var(--primary-light)", color: "var(--primary-text)" }}><Calendar className="h-5 w-5" /></div>
+                    <div><p className="font-semibold" style={{ color: "var(--text)" }}>{property.features.yearBuilt}</p><p className="text-xs" style={{ color: "var(--text-muted)" }}>Year Built</p></div>
                   </div>
                 )}
               </div>
@@ -170,18 +170,18 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                   <TabsTrigger value="location">Location</TabsTrigger>
                 </TabsList>
                 <TabsContent value="overview">
-                  <div className="rounded-2xl bg-light-50 dark:bg-dark-900 border border-light-200 dark:border-dark-800 p-6">
-                    <h3 className="font-semibold text-lg text-dark-900 dark:text-light-50 mb-4">Description</h3>
-                    <p className="text-light-600 dark:text-dark-300 leading-relaxed whitespace-pre-line">{property.description}</p>
+                  <div className="rounded-2xl p-6" style={{ background: "var(--surface-hover)", border: "1px solid var(--border)" }}>
+                    <h3 className="font-semibold text-lg mb-4" style={{ color: "var(--text)" }}>Description</h3>
+                    <p className="leading-relaxed whitespace-pre-line" style={{ color: "var(--text-secondary)" }}>{property.description}</p>
                   </div>
                 </TabsContent>
                 <TabsContent value="amenities">
-                  <div className="rounded-2xl bg-light-50 dark:bg-dark-900 border border-light-200 dark:border-dark-800 p-6">
-                    <h3 className="font-semibold text-lg text-dark-900 dark:text-light-50 mb-4">Amenities & Features</h3>
+                  <div className="rounded-2xl p-6" style={{ background: "var(--surface-hover)", border: "1px solid var(--border)" }}>
+                    <h3 className="font-semibold text-lg mb-4" style={{ color: "var(--text)" }}>Amenities & Features</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {activeAmenities.map((amenity) => (
-                        <div key={amenity} className="flex items-center gap-2 text-sm text-dark-700 dark:text-light-300">
-                          <CheckCircle2 className="h-4 w-4 text-primary-500" />
+                        <div key={amenity} className="flex items-center gap-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+                          <CheckCircle2 className="h-4 w-4" style={{ color: "var(--primary)" }} />
                           {amenity.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase())}
                         </div>
                       ))}
@@ -217,10 +217,10 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
           {/* Sidebar */}
           <div className="space-y-6">
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="sticky top-28 space-y-6">
-              <div className="rounded-2xl bg-white dark:bg-dark-800 border border-light-200 dark:border-dark-700 p-6 shadow-soft">
+              <div className="rounded-2xl p-6 shadow-soft" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <div className="mb-4">
-                  <p className="font-display text-3xl font-bold text-primary-700 dark:text-primary-400">{formatCurrency(property.price)}</p>
-                  {property.listingType === "rent" && <p className="text-sm text-light-500 dark:text-dark-400">per annum</p>}
+                  <p className="font-display text-3xl font-bold" style={{ color: "var(--primary)" }}>{formatCurrency(property.price)}</p>
+                  {property.listingType === "rent" && <p className="text-sm" style={{ color: "var(--text-muted)" }}>per annum</p>}
                 </div>
                 <div className="space-y-3">
                   <Button fullWidth size="lg">
@@ -234,30 +234,30 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-white dark:bg-dark-800 border border-light-200 dark:border-dark-700 p-6 shadow-soft">
-                <h3 className="font-semibold text-dark-900 dark:text-light-50 mb-4">Listed by</h3>
+              <div className="rounded-2xl p-6 shadow-soft" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
+                <h3 className="font-semibold mb-4" style={{ color: "var(--text)" }}>Listed by</h3>
                 <div className="flex items-center gap-3 mb-4">
                   <img src={property.agent.image} alt={property.agent.name} className="w-14 h-14 rounded-xl object-cover" />
                   <div>
-                    <p className="font-semibold text-dark-900 dark:text-light-50">{property.agent.name}</p>
-                    <p className="text-sm text-light-500 dark:text-dark-400">{property.agent.title}</p>
+                    <p className="font-semibold" style={{ color: "var(--text)" }}>{property.agent.name}</p>
+                    <p className="text-sm" style={{ color: "var(--text-muted)" }}>{property.agent.title}</p>
                     <div className="flex items-center gap-1 mt-0.5">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star key={i} className={cn("h-3 w-3", i < Math.floor(property.agent.rating) ? "text-amber-400 fill-amber-400" : "text-light-300 dark:text-dark-600")} />
                       ))}
-                      <span className="text-xs text-light-500 ml-1">({property.agent.reviewCount})</span>
+                      <span className="text-xs ml-1" style={{ color: "var(--text-muted)" }}>({property.agent.reviewCount})</span>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <a href={`tel:${property.agent.phone}`} className="flex items-center gap-3 p-3 rounded-xl bg-light-50 dark:bg-dark-700 hover:bg-light-100 dark:hover:bg-dark-600 transition-colors text-sm text-dark-700 dark:text-light-300">
-                    <Phone className="h-4 w-4 text-primary-500" /> {property.agent.phone}
+                  <a href={`tel:${property.agent.phone}`} className="flex items-center gap-3 p-3 rounded-xl transition-colors text-sm" style={{ background: "var(--surface-hover)", color: "var(--text)" }}>
+                    <Phone className="h-4 w-4" style={{ color: "var(--primary)" }} /> {property.agent.phone}
                   </a>
-                  <a href={`mailto:${property.agent.email}`} className="flex items-center gap-3 p-3 rounded-xl bg-light-50 dark:bg-dark-700 hover:bg-light-100 dark:hover:bg-dark-600 transition-colors text-sm text-dark-700 dark:text-light-300">
-                    <Mail className="h-4 w-4 text-primary-500" /> {property.agent.email}
+                  <a href={`mailto:${property.agent.email}`} className="flex items-center gap-3 p-3 rounded-xl transition-colors text-sm" style={{ background: "var(--surface-hover)", color: "var(--text)" }}>
+                    <Mail className="h-4 w-4" style={{ color: "var(--primary)" }} /> {property.agent.email}
                   </a>
                   {property.agent.whatsapp && (
-                    <a href={`https://wa.me/${property.agent.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors text-sm text-green-700 dark:text-green-400">
+                    <a href={`https://wa.me/${property.agent.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-3 rounded-xl transition-colors text-sm" style={{ background: "var(--success-light, #ecfdf5)", color: "var(--success, #059669)" }}>
                       <MessageCircle className="h-4 w-4" /> WhatsApp
                     </a>
                   )}
@@ -270,7 +270,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
         {/* Similar Properties */}
         {similarProperties.length > 0 && (
           <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mt-16">
-            <h2 className="font-display text-2xl font-bold text-dark-900 dark:text-light-50 mb-6">Similar Properties</h2>
+            <h2 className="font-display text-2xl font-bold mb-6" style={{ color: "var(--text)" }}>Similar Properties</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {similarProperties.map((p) => (
                 <PropertyCard key={p.id} property={p} />
@@ -283,7 +283,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
       {/* Lightbox */}
       <AnimatePresence>
         {isLightboxOpen && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[70] bg-dark-950/95 flex items-center justify-center" onClick={() => setIsLightboxOpen(false)}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[70] flex items-center justify-center" onClick={() => setIsLightboxOpen(false)} style={{ background: "rgba(5, 8, 22, 0.95)" }}>
             <button onClick={() => setIsLightboxOpen(false)} className="absolute top-6 right-6 text-white/80 hover:text-white z-10">
               <X className="h-8 w-8" />
             </button>
