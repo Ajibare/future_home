@@ -3,9 +3,10 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Pencil, Trash2, EyeOff } from "lucide-react";
+import { Plus, Pencil, Trash2, EyeOff, Eye } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
+import { AdminGridSkeleton } from "@/components/admin/loading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAdminList, useAdminMutations } from "@/hooks/use-admin-resource";
@@ -37,7 +38,7 @@ export default function AdminBlogPage() {
       />
 
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading posts...</p>
+        <AdminGridSkeleton count={6} />
       ) : !posts?.length ? (
         <div className="rounded-2xl p-12 text-center" style={{ background: "var(--surface)", border: "1px dashed var(--border)" }}>
           <p style={{ color: "var(--text-muted)" }}>No blog posts yet.</p>
@@ -58,9 +59,14 @@ export default function AdminBlogPage() {
                 <Badge variant="primary" className="mb-2">{post.category.name}</Badge>
                 <h3 className="font-semibold text-sm line-clamp-2 mb-3" style={{ color: "var(--text)" }}>{post.title}</h3>
                 <div className="flex items-center justify-between">
-                  <Link href={`/admin/blog/${post.id}`}>
-                    <Button variant="outline" size="sm"><Pencil className="h-3.5 w-3.5" /> Edit</Button>
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <Link href={`/admin/blog/${post.id}`}>
+                      <Button variant="outline" size="sm"><Pencil className="h-3.5 w-3.5" /> Edit</Button>
+                    </Link>
+                    <a href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer">
+                      <Button variant="ghost" size="icon-sm" aria-label="View live post"><Eye className="h-4 w-4" /></Button>
+                    </a>
+                  </div>
                   <Button variant="ghost" size="icon-sm" onClick={() => setPendingDelete(post)}>
                     <Trash2 className="h-4 w-4" style={{ color: "#ef4444" }} />
                   </Button>

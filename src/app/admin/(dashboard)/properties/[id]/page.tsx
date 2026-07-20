@@ -4,6 +4,7 @@ import * as React from "react";
 import { useParams, useRouter } from "next/navigation";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { PropertyForm, type PropertyFormValue } from "@/components/admin/property-form";
+import { AdminFormSkeleton } from "@/components/admin/loading";
 import { useAdminItem, useAdminMutations } from "@/hooks/use-admin-resource";
 import type { Property } from "@/types";
 import { toast } from "sonner";
@@ -28,7 +29,7 @@ export default function EditPropertyPage() {
     <div>
       <AdminPageHeader title="Edit Property" description={property?.title} />
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading...</p>
+        <AdminFormSkeleton />
       ) : property ? (
         <PropertyForm initialValue={property} onSubmit={handleSubmit} isSubmitting={update.isPending} submitLabel="Save Changes" />
       ) : (

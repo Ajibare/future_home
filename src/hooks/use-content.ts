@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Property, BlogPost, TeamMember, Testimonial, Service, ContactInfo } from "@/types";
+import type { Property, BlogPost, TeamMember, Testimonial, Service, ContactInfo, LegalPageContent } from "@/types";
 
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url);
@@ -47,4 +47,8 @@ export function useServices() {
 
 export function useSiteSettings() {
   return useQuery({ queryKey: ["public-settings"], queryFn: () => fetchJson<ContactInfo & { name: string; tagline: string; description: string }>("/api/settings") });
+}
+
+export function useLegalPage(slug: string) {
+  return useQuery({ queryKey: ["public-legal", slug], queryFn: () => fetchJson<LegalPageContent>(`/api/legal/${slug}`) });
 }

@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { BlogForm, type BlogFormValue } from "@/components/admin/blog-form";
+import { AdminFormSkeleton } from "@/components/admin/loading";
 import { useAdminItem, useAdminMutations } from "@/hooks/use-admin-resource";
 import type { BlogPost } from "@/types";
 import { toast } from "sonner";
@@ -27,7 +28,7 @@ export default function EditBlogPostPage() {
     <div>
       <AdminPageHeader title="Edit Blog Post" description={post?.title} />
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading...</p>
+        <AdminFormSkeleton />
       ) : post ? (
         <BlogForm initialValue={post} onSubmit={handleSubmit} isSubmitting={update.isPending} submitLabel="Save Changes" />
       ) : (

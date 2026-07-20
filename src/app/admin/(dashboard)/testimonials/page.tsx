@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Plus, Pencil, Trash2, Star, EyeOff } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
+import { AdminGridSkeleton } from "@/components/admin/loading";
 import { ImageUploader } from "@/components/admin/image-uploader";
 import { Dialog } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -64,7 +65,7 @@ export default function AdminTestimonialsPage() {
       <AdminPageHeader title="Testimonials" description="Manage client reviews shown on the homepage." action={<Button onClick={openCreate}><Plus className="h-4 w-4" /> Add Testimonial</Button>} />
 
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading testimonials...</p>
+        <AdminGridSkeleton count={6} />
       ) : !testimonials?.length ? (
         <div className="rounded-2xl p-12 text-center" style={{ background: "var(--surface)", border: "1px dashed var(--border)" }}>
           <p style={{ color: "var(--text-muted)" }}>No testimonials yet.</p>

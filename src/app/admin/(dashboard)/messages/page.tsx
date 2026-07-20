@@ -4,6 +4,7 @@ import * as React from "react";
 import { Mail, MessageSquare, Trash2, Circle, CheckCircle2 } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
+import { AdminTableSkeleton } from "@/components/admin/loading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useAdminList, useAdminMutations } from "@/hooks/use-admin-resource";
@@ -59,7 +60,7 @@ export default function AdminMessagesPage() {
       </div>
 
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading messages...</p>
+        <AdminTableSkeleton rows={5} />
       ) : !filtered.length ? (
         <div className="rounded-2xl p-12 text-center" style={{ background: "var(--surface)", border: "1px dashed var(--border)" }}>
           <p style={{ color: "var(--text-muted)" }}>No messages yet.</p>

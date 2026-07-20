@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Plus, Pencil, Trash2, EyeOff } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
+import { AdminGridSkeleton } from "@/components/admin/loading";
 import { Button } from "@/components/ui/button";
 import { useAdminList, useAdminMutations } from "@/hooks/use-admin-resource";
 import type { TeamMember } from "@/types";
@@ -36,7 +37,7 @@ export default function AdminTeamPage() {
       />
 
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading team...</p>
+        <AdminGridSkeleton count={4} />
       ) : !members?.length ? (
         <div className="rounded-2xl p-12 text-center" style={{ background: "var(--surface)", border: "1px dashed var(--border)" }}>
           <p style={{ color: "var(--text-muted)" }}>No team members yet.</p>

@@ -341,6 +341,20 @@ export interface Service {
   isActive?: boolean;
 }
 
+export interface LegalPageSection {
+  heading: string;
+  body: string;
+}
+
+export interface LegalPageContent {
+  id: string;
+  slug: "privacy" | "terms" | "cookies" | "accessibility";
+  title: string;
+  lastUpdated: string;
+  intro: string;
+  sections: LegalPageSection[];
+}
+
 export interface Statistic {
   id: string;
   label: string;

@@ -7,7 +7,9 @@ import { Testimonial } from "@/models/Testimonial";
 import { TeamMember } from "@/models/TeamMember";
 import { Service } from "@/models/Service";
 import { Settings } from "@/models/Settings";
+import { LegalPage } from "@/models/LegalPage";
 import { MOCK_PROPERTIES, MOCK_BLOG_POSTS, MOCK_TESTIMONIALS } from "@/services/mock-data";
+import { LEGAL_PAGES_SEED } from "@/services/legal-seed-data";
 import { TEAM_MEMBERS, SERVICES, COMPANY_INFO, STATISTICS, WHY_CHOOSE_US } from "@/constants";
 
 function stripMockId<T extends { id: string }>(item: T) {
@@ -53,6 +55,11 @@ export async function POST(request: NextRequest) {
     { upsert: true }
   );
   results.settings = 1;
+
+  if ((await LegalPage.countDocuments()) === 0) {
+    const inserted = await LegalPage.insertMany(LEGAL_PAGES_SEED);
+    results.legalPages = inserted.length;
+  }
 
   return NextResponse.json({ success: true, seeded: results });
 }

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Building2, Newspaper, Users, Quote, Wrench, Star, CheckCircle2, ArrowRight, Database, Mail } from "lucide-react";
 import { adminApi } from "@/lib/admin-api";
 import { AdminPageHeader } from "@/components/admin/page-header";
+import { AdminStatsSkeleton } from "@/components/admin/loading";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -66,7 +67,7 @@ export default function AdminDashboardPage() {
       />
 
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading stats...</p>
+        <div className="mb-8"><AdminStatsSkeleton count={8} /></div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <StatCard icon={Building2} label="Total Properties" value={stats?.properties ?? 0} href="/admin/properties" />

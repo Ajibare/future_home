@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Building2, Newspaper, Users, Quote, Wrench, Settings, LogOut, X, Mail } from "lucide-react";
+import { LayoutDashboard, Building2, Newspaper, Users, Quote, Wrench, Settings, LogOut, X, Mail, FileText } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { label: "Testimonials", href: "/admin/testimonials", icon: Quote },
   { label: "Services", href: "/admin/services", icon: Wrench },
   { label: "Messages", href: "/admin/messages", icon: Mail },
+  { label: "Legal Pages", href: "/admin/legal", icon: FileText },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
 

@@ -4,6 +4,7 @@ import * as React from "react";
 import { Plus, Pencil, Trash2, EyeOff, Wrench } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
+import { AdminGridSkeleton } from "@/components/admin/loading";
 import { Dialog } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -72,7 +73,7 @@ export default function AdminServicesPage() {
       <AdminPageHeader title="Services" description="Manage the services listed on the site." action={<Button onClick={openCreate}><Plus className="h-4 w-4" /> Add Service</Button>} />
 
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading services...</p>
+        <AdminGridSkeleton count={6} />
       ) : !services?.length ? (
         <div className="rounded-2xl p-12 text-center" style={{ background: "var(--surface)", border: "1px dashed var(--border)" }}>
           <p style={{ color: "var(--text-muted)" }}>No services yet.</p>

@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { AdminPageHeader } from "@/components/admin/page-header";
 import { TeamForm, type TeamFormValue } from "@/components/admin/team-form";
+import { AdminFormSkeleton } from "@/components/admin/loading";
 import { useAdminItem, useAdminMutations } from "@/hooks/use-admin-resource";
 import type { TeamMember } from "@/types";
 import { toast } from "sonner";
@@ -27,7 +28,7 @@ export default function EditTeamMemberPage() {
     <div>
       <AdminPageHeader title="Edit Team Member" description={member?.name} />
       {isLoading ? (
-        <p style={{ color: "var(--text-muted)" }}>Loading...</p>
+        <AdminFormSkeleton />
       ) : member ? (
         <TeamForm initialValue={member} onSubmit={handleSubmit} isSubmitting={update.isPending} submitLabel="Save Changes" />
       ) : (

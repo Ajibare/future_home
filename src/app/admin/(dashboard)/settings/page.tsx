@@ -4,6 +4,7 @@ import * as React from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Plus, Trash2 } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/page-header";
+import { AdminFormSkeleton } from "@/components/admin/loading";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -63,7 +64,7 @@ export default function AdminSettingsPage() {
     return (
       <div>
         <AdminPageHeader title="Site Settings" description="Company info shown across the site." />
-        <p style={{ color: "var(--text-muted)" }}>Loading...</p>
+        <AdminFormSkeleton />
       </div>
     );
   }
