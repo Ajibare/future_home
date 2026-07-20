@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, Clock, ArrowRight, Send, Heart, Globe, MessageCircle, ExternalLink, Play } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, ArrowRight, Send, Globe, MessageCircle, ExternalLink, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -142,12 +142,6 @@ export function Footer() {
               <Link key={link.label} href={link.href} className="text-xs transition-colors" style={{ color: "var(--text-muted)" }}>{link.label}</Link>
             ))}
           </div>
-          <a href="https://sapok.vercel.app/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all duration-200" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text-secondary)" }}>
-            <Heart className="h-3 w-3" style={{ color: "var(--primary)" }} />
-            <span>Made in Lagos</span>
-            <span style={{ color: "var(--text-muted)" }}>·</span>
-            <span style={{ color: "var(--primary)", fontWeight: 500 }}>Developed by SAPOK</span>
-          </a>
         </div>
       </div>
     </footer>
