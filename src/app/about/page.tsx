@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Award, Target, Eye, CheckCircle2, Star, Mail, Phone, Heart, Globe, MessageCircle, ExternalLink, Play } from "lucide-react";
 
@@ -166,7 +167,13 @@ export default function AboutPage() {
               <motion.div key={member.id} {...fadeInUp}>
                 <motion.div whileHover={{ y: -6 }} className="h-full rounded-2xl overflow-hidden transition-all duration-300 group" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                   <div className="relative aspect-[4/5] overflow-hidden">
-                    <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
                       {member.linkedin && <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/40 transition-all" style={{ background: "rgba(255,255,255,0.2)", backdropFilter: "blur(4px)" }} aria-label="LinkedIn"><SocialIcon type="linkedin" className="h-4 w-4" /></a>}
