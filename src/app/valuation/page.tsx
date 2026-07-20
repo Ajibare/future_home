@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useForm } from "react-hook-form";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Calculator, MapPin, Home, Clock, CheckCircle2, Phone, Mail,
@@ -58,7 +59,7 @@ export default function ValuationPage() {
     <div className="overflow-hidden pt-24">
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=1080&fit=crop" alt="Property valuation" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=1080&fit=crop" alt="Property valuation" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
         <div className="container relative z-10">
@@ -125,8 +126,8 @@ export default function ValuationPage() {
             </motion.div>
 
             <motion.div {...fadeInUp} className="space-y-6">
-              <div className="rounded-2xl overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop" alt="Property valuation" className="w-full h-64 object-cover" />
+              <div className="relative rounded-2xl overflow-hidden h-64">
+                <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop" alt="Property valuation" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
               <div className="rounded-2xl p-6" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <h3 className="font-semibold text-lg mb-4" style={{ color: "var(--text)" }}>Why Choose Our Valuation?</h3>
@@ -178,7 +179,7 @@ export default function ValuationPage() {
 
       <section className="py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="" fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,122,110,0.92), rgba(13,148,136,0.85))" }} />
         </div>
         <div className="container relative z-10">

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Phone, Mail, Search, ChevronRight, Home, HelpCircle, ChevronDown,
@@ -222,10 +223,13 @@ export default function FAQPage() {
     <div className="overflow-hidden pt-24">
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=800&fit=crop"
             alt=""
-            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-dark-950/85 to-dark-900/70" />
         </div>

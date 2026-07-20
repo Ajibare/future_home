@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight, CheckCircle2, Phone, Mail, Star, Zap, Shield,
@@ -85,7 +86,7 @@ export default function MarketingPackagesPage() {
     <div className="overflow-hidden pt-24">
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=1080&fit=crop" alt="Marketing packages" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=1080&fit=crop" alt="Marketing packages" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
         <div className="container relative z-10">
@@ -100,7 +101,7 @@ export default function MarketingPackagesPage() {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl">
-              Choose from our tailored marketing packages designed to maximize your property's visibility and attract qualified buyers faster.
+              Choose from our tailored marketing packages designed to maximize your property&apos;s visibility and attract qualified buyers faster.
             </p>
           </motion.div>
         </div>
@@ -182,7 +183,7 @@ export default function MarketingPackagesPage() {
 
       <section className="py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="" fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,122,110,0.92), rgba(13,148,136,0.85))" }} />
         </div>
         <div className="container relative z-10">

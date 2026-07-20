@@ -39,7 +39,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=800&fit=crop" alt="" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=800&fit=crop" alt="" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
         <div className="container relative z-10">
@@ -67,8 +67,8 @@ export default function AboutPage() {
               </div>
             </motion.div>
             <motion.div {...fadeInUp} className="relative">
-              <div className="rounded-2xl overflow-hidden aspect-[4/5]">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop" alt="Our office" className="w-full h-full object-cover" />
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
+                <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop" alt="Our office" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
               <div className="absolute -bottom-6 -right-6 rounded-2xl p-5 shadow-large" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <div className="flex items-center gap-3">

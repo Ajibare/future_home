@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight, Home, Key, Building2, TrendingUp, Hammer, Scale,
@@ -48,10 +49,13 @@ export default function ServicesPage() {
       {/* Hero Section */}
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=1080&fit=crop"
             alt="Real estate services"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
@@ -251,10 +255,12 @@ export default function ServicesPage() {
             </motion.div>
             <motion.div {...fadeInUp} className="relative">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
                   alt="Professional real estate team"
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 rounded-2xl p-5 shadow-large" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
@@ -276,10 +282,12 @@ export default function ServicesPage() {
       {/* CTA Section */}
       <section className="py-20 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop"
             alt="Luxury property"
-            className="w-full h-full object-cover"
+            fill
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,122,110,0.92), rgba(13,148,136,0.85))" }} />
         </div>
@@ -289,7 +297,7 @@ export default function ServicesPage() {
               Ready to Start Your Real Estate Journey?
             </h2>
             <p className="text-lg text-teal-100 mb-8 max-w-xl mx-auto">
-              Whether you're buying, selling, renting, or investing, our team of experts is here to guide you every step of the way. Get in touch today.
+              Whether you&apos;re buying, selling, renting, or investing, our team of experts is here to guide you every step of the way. Get in touch today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">

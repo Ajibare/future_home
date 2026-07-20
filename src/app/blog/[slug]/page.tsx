@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft, Clock, Eye, Heart, Share2, User, Calendar, Tag, Globe, MessageCircle, ExternalLink } from "lucide-react";
@@ -48,7 +49,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
       {/* Hero */}
       <section className="relative">
         <div className="relative h-[50vh] md:h-[60vh]">
-          <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover" />
+          <Image src={post.coverImage} alt={post.title} fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(5,8,22,0.9), rgba(15,23,42,0.5), transparent)" }} />
         </div>
         <div className="absolute bottom-0 left-0 right-0">
@@ -105,7 +106,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
               {/* Author */}
               <div className="mt-10 p-6 rounded-2xl" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <div className="flex items-start gap-4">
-                  <img src={post.author.image} alt={post.author.name} className="w-16 h-16 rounded-xl object-cover" />
+                  <Image src={post.author.image} alt={post.author.name} width={64} height={64} className="w-16 h-16 rounded-xl object-cover" />
                   <div>
                     <p className="font-semibold" style={{ color: "var(--text)" }}>{post.author.name}</p>
                     <p className="text-sm mb-2" style={{ color: "var(--primary)" }}>{post.author.title}</p>
@@ -123,7 +124,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
                   <div className="space-y-4">
                     {relatedPosts.map((rp) => (
                       <Link key={rp.id} href={`/blog/${rp.slug}`} className="flex gap-3 group">
-                        <img src={rp.coverImage} alt={rp.title} className="w-20 h-16 rounded-lg object-cover shrink-0" />
+                        <Image src={rp.coverImage} alt={rp.title} width={80} height={64} className="w-20 h-16 rounded-lg object-cover shrink-0" />
                         <div>
                           <p className="text-sm font-medium line-clamp-2 transition-colors group-hover:text-[var(--primary)]" style={{ color: "var(--text)" }}>{rp.title}</p>
                           <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{rp.readTime} min read</p>

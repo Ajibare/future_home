@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Search, ArrowRight, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -84,7 +85,7 @@ export default function BlogPage() {
                   <Link href={`/blog/${post.slug}`}>
                     <motion.article whileHover={{ y: -6 }} className="group h-full rounded-2xl overflow-hidden transition-all duration-300" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                       <div className="relative aspect-[16/10] overflow-hidden">
-                        <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src={post.coverImage} alt={post.title} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
                         <div className="absolute top-3 left-3">
                           <Badge variant="primary">{post.category.name}</Badge>
                         </div>
@@ -101,7 +102,7 @@ export default function BlogPage() {
                         <p className="text-sm line-clamp-2 mb-4" style={{ color: "var(--text-muted)" }}>{post.excerpt}</p>
                         <div className="flex items-center justify-between pt-4" style={{ borderTop: "1px solid var(--border)" }}>
                           <div className="flex items-center gap-2">
-                            <img src={post.author.image} alt={post.author.name} className="w-7 h-7 rounded-full object-cover" />
+                            <Image src={post.author.image} alt={post.author.name} width={28} height={28} className="w-7 h-7 rounded-full object-cover" />
                             <span className="text-xs" style={{ color: "var(--text-secondary)" }}>{post.author.name}</span>
                           </div>
                           <ArrowRight className="h-4 w-4 transition-all group-hover:translate-x-1 group-hover:text-[var(--primary)]" style={{ color: "var(--text-muted)" }} />
