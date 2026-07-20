@@ -33,6 +33,26 @@ export function formatDate(
   return new Date(date).toLocaleDateString("en-US", options);
 }
 
+export function timeAgo(date: Date | string): string {
+  const seconds = Math.max(0, (Date.now() - new Date(date).getTime()) / 1000);
+  if (seconds < 5) return "just now";
+  const units: [number, string][] = [
+    [60, "s"],
+    [60, "m"],
+    [24, "h"],
+    [7, "d"],
+    [4.345, "w"],
+    [12, "mo"],
+    [Infinity, "y"],
+  ];
+  let value = seconds;
+  for (const [step, label] of units) {
+    if (value < step) return `${Math.floor(value)}${label} ago`;
+    value /= step;
+  }
+  return "just now";
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()

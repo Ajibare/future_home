@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:3000/api/messages -b /tmp/cookies.txt)",
+      "Bash(curl -s -X DELETE http://localhost:3000/api/messages/6a5e0e1fa89de0551fe39b25 -b /tmp/cookies.txt)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/properties)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/admin/login)",
+      "Bash(curl -s -c /tmp/cookies2.txt -X POST http://localhost:3000/api/admin/login -H \"Content-Type: application/json\" -d '{\"email\":\"admin@futurehomes.com\",\"password\":\"Admin@123\"}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/admin/seed -b /tmp/cookies2.txt)",
+      "Bash(tail -n 60 /tmp/devserver2.log)",
+      "Read(//tmp/**)",
+      "Bash(curl -s http://localhost:3000/api/legal/privacy)",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const p=JSON.parse\\(d\\);console.log\\('title:',p.title\\);console.log\\('sections:',p.sections.length\\);console.log\\('first section body:',p.sections[0].body.slice\\(0,80\\)\\)}\\)\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/privacy)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/terms)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/cookies)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/accessibility)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/admin/legal)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/admin/legal -b /tmp/cookies2.txt)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/admin/legal/privacy -b /tmp/cookies2.txt)",
+      "Bash(curl -s -X PUT http://localhost:3000/api/legal/privacy -b /tmp/cookies2.txt -H \"Content-Type: application/json\" -d '{\"lastUpdated\":\"July 21, 2026 \\(edited\\)\"}')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const p=JSON.parse\\(d\\);console.log\\('lastUpdated:',p.lastUpdated\\);console.log\\('title still intact:',p.title\\);console.log\\('sections still intact:',p.sections.length\\)}\\)\")",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>console.log\\(JSON.parse\\(d\\).lastUpdated\\)\\)\")",
+      "Bash(curl -s -X PUT http://localhost:3000/api/legal/privacy -b /tmp/cookies2.txt -H \"Content-Type: application/json\" -d '{\"lastUpdated\":\"July 20, 2026\"}')",
+      "Bash(node -e \"console.log\\(Object.keys\\(require\\('sonner'\\)\\)\\)\")",
+      "Bash(node -e \"const {toast} = require\\('sonner'\\); console.log\\(Object.keys\\(toast\\)\\)\")",
+      "Bash(tail -n 40 /tmp/devserver3.log)",
+      "Bash(curl -s -c /tmp/cookies3.txt -X POST http://localhost:3000/api/admin/login -H \"Content-Type: application/json\" -d '{\"email\":\"admin@futurehomes.com\",\"password\":\"Admin@123\"}')",
+      "Bash(tail -n 80 /tmp/devserver3.log)",
+      "Bash(sleep 20 && tail -n 20 /tmp/devserver3.log)",
+      "Bash(curl -s -o /tmp/loginresp.txt -w \"%{http_code}\\\\n\" -X POST http://localhost:3000/api/admin/login -H \"Content-Type: application/json\" -d '{\"email\":\"admin@futurehomes.com\",\"password\":\"Admin@123\"}')",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/api/properties)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/api/settings)"
+    ]
+  }
+}
