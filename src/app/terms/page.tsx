@@ -1,7 +1,12 @@
+"use client";
+
 import { LegalPage } from "@/components/legal/legal-page";
-import { COMPANY_INFO } from "@/constants";
+import { COMPANY_INFO as DEFAULT_COMPANY_INFO } from "@/constants";
+import { useSiteSettings } from "@/hooks/use-content";
 
 export default function TermsOfServicePage() {
+  const { data: settings } = useSiteSettings();
+  const COMPANY_INFO = settings ?? DEFAULT_COMPANY_INFO;
   return (
     <LegalPage
       title="Terms of Service"

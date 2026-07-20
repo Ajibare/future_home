@@ -8,7 +8,7 @@ import { Search, ArrowRight, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MOCK_BLOG_POSTS } from "@/services/mock-data";
+import { useBlogPosts } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -18,21 +18,22 @@ const fadeInUp = {
 };
 
 export default function BlogPage() {
+  const { data: allPosts } = useBlogPosts();
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedCategory, setSelectedCategory] = React.useState<string>("all");
 
   const categories = React.useMemo(() => {
-    const cats = Array.from(new Set(MOCK_BLOG_POSTS.map((p) => p.category.name)));
+    const cats = Array.from(new Set((allPosts || []).map((p) => p.category.name)));
     return ["all", ...cats];
-  }, []);
+  }, [allPosts]);
 
   const filteredPosts = React.useMemo(() => {
-    return MOCK_BLOG_POSTS.filter((post) => {
+    return (allPosts || []).filter((post) => {
       const matchesSearch = !searchQuery || post.title.toLowerCase().includes(searchQuery.toLowerCase()) || post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = selectedCategory === "all" || post.category.name === selectedCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, allPosts]);
 
   return (
     <div className="overflow-hidden pt-24">

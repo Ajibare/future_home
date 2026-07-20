@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { RootProviders } from "@/providers";
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
-import { SearchModal } from "@/components/layout/search-modal";
-import { FloatingElements } from "@/components/layout/floating-elements";
-import { LoadingProvider } from "@/components/layout/loading-provider";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import { ASSETS } from "@/constants";
 
 const inter = Inter({
@@ -72,13 +68,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} min-h-screen flex flex-col antialiased`}>
         <RootProviders>
-          <LoadingProvider>
-            <Navbar />
-            <SearchModal />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <FloatingElements />
-          </LoadingProvider>
+          <SiteChrome>{children}</SiteChrome>
         </RootProviders>
       </body>
     </html>

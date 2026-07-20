@@ -16,30 +16,34 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCard } from "@/components/property/property-card";
 import { GoogleMap } from "@/components/ui/google-map";
-import { MOCK_PROPERTIES } from "@/services/mock-data";
+import { useProperty, useProperties } from "@/hooks/use-content";
 import { usePropertyStore } from "@/stores";
 import { toast } from "sonner";
-import type { Property } from "@/types";
-
-function getProperty(id: string): Property | undefined {
-  return MOCK_PROPERTIES.find((p) => p.id === id);
-}
 
 export default function PropertyDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
-  const property = getProperty(id);
+  const { data: property, isLoading, isError } = useProperty(id);
+  const { data: allProperties } = useProperties();
   const [currentImage, setCurrentImage] = React.useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("overview");
   const { toggleWishlist, isInWishlist, addToCompare, isInCompare } = usePropertyStore();
 
-  if (!property) {
+  if (isError) {
     notFound();
+  }
+
+  if (isLoading || !property) {
+    return (
+      <div className="min-h-screen pt-24 flex items-center justify-center" style={{ background: "var(--bg)" }}>
+        <div className="animate-pulse h-96 w-full max-w-4xl rounded-2xl mx-4" style={{ background: "var(--surface-hover)" }} />
+      </div>
+    );
   }
 
   const isInWishlist_ = isInWishlist(property.id);
   const isInCompare_ = isInCompare(property.id);
-  const similarProperties = MOCK_PROPERTIES.filter((p) => p.id !== property.id && (p.category === property.category || p.type === property.type)).slice(0, 4);
+  const similarProperties = (allProperties || []).filter((p) => p.id !== property.id && (p.category === property.category || p.type === property.type)).slice(0, 4);
 
   const handleShare = async () => {
     const url = window.location.href;

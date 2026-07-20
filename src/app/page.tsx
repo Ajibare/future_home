@@ -10,8 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { PropertyCard } from "@/components/property/property-card";
-import { MOCK_PROPERTIES, MOCK_TESTIMONIALS, MOCK_BLOG_POSTS } from "@/services/mock-data";
-import { COMPANY_INFO, STATISTICS, WHY_CHOOSE_US, SERVICES } from "@/constants";
+import { useProperties, useTestimonials, useBlogPosts, useServices, useSiteSettings } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -50,9 +49,17 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [searchType, setSearchType] = React.useState<"sale" | "rent">("sale");
 
-  const featuredProperties = MOCK_PROPERTIES.filter((p) => p.isFeatured).slice(0, 6);
-  const testimonials = MOCK_TESTIMONIALS;
-  const blogPosts = MOCK_BLOG_POSTS.slice(0, 3);
+  const { data: allProperties } = useProperties();
+  const { data: allTestimonials } = useTestimonials();
+  const { data: allBlogPosts } = useBlogPosts();
+  const { data: services } = useServices();
+  const { data: settings } = useSiteSettings();
+  const STATISTICS = settings?.statistics || [];
+  const WHY_CHOOSE_US = settings?.whyChooseUs || [];
+
+  const featuredProperties = (allProperties || []).filter((p) => p.isFeatured).slice(0, 6);
+  const testimonials = allTestimonials || [];
+  const blogPosts = (allBlogPosts || []).slice(0, 3);
 
   return (
     <div className="overflow-hidden">
@@ -248,7 +255,7 @@ export default function HomePage() {
         <div className="container">
           <SectionHeader badge="Our Services" title="Comprehensive Real Estate Solutions" description="From buying and selling to property management, we offer end-to-end services." />
           <motion.div {...staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service) => (
+            {(services || []).map((service) => (
               <motion.div key={service.id} {...fadeInUp}>
                 <motion.div whileHover={{ y: -6 }} className="h-full p-6 rounded-2xl transition-all duration-300 group" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                   <div className="flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 mb-5" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>

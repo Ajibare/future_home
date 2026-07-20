@@ -10,7 +10,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { COMPANY_INFO } from "@/constants";
+import { COMPANY_INFO as DEFAULT_COMPANY_INFO } from "@/constants";
+import { useSiteSettings } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -200,6 +201,8 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
 }
 
 export default function FAQPage() {
+  const { data: settings } = useSiteSettings();
+  const COMPANY_INFO = settings ?? DEFAULT_COMPANY_INFO;
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const filteredData = React.useMemo(() => {

@@ -13,7 +13,7 @@ import { SkeletonPropertyGrid } from "@/components/ui/skeleton";
 import { Drawer } from "@/components/ui/drawer";
 import { Select } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { MOCK_PROPERTIES } from "@/services/mock-data";
+import { useProperties } from "@/hooks/use-content";
 import type { PropertyType, ListingType } from "@/types";
 
 const fadeInUp = {
@@ -45,21 +45,16 @@ const sortOptions = [
 function ListPropertyContent() {
   const searchParams = useSearchParams();
   const typeParam = (searchParams.get("type") as ListingType) || "sale";
+  const { data: allProperties, isLoading } = useProperties();
   const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid");
   const [isFilterOpen, setIsFilterOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
   const [selectedType, setSelectedType] = React.useState<string>("all");
   const [selectedBedrooms, setSelectedBedrooms] = React.useState<number | undefined>();
   const [sortBy, setSortBy] = React.useState("newest");
   const [searchQuery, setSearchQuery] = React.useState("");
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, []);
-
   const filteredProperties = React.useMemo(() => {
-    let results = MOCK_PROPERTIES.filter((p) => p.listingType === typeParam);
+    let results = (allProperties || []).filter((p) => p.listingType === typeParam);
     if (selectedType !== "all") results = results.filter((p) => p.type === selectedType);
     if (selectedBedrooms) results = results.filter((p) => p.features.bedrooms >= selectedBedrooms);
     if (searchQuery) {
@@ -73,7 +68,7 @@ function ListPropertyContent() {
       default: break;
     }
     return results;
-  }, [typeParam, selectedType, selectedBedrooms, sortBy, searchQuery]);
+  }, [typeParam, selectedType, selectedBedrooms, sortBy, searchQuery, allProperties]);
 
   const FilterSidebar = () => (
     <div className="space-y-6">

@@ -10,7 +10,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { COMPANY_INFO, SERVICES } from "@/constants";
+import { COMPANY_INFO } from "@/constants";
+import { useServices } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -44,6 +45,7 @@ const gradientPairs = [
 ];
 
 export default function ServicesPage() {
+  const { data: SERVICES } = useServices();
   return (
     <div className="overflow-hidden pt-24">
       {/* Hero Section */}
@@ -182,7 +184,7 @@ export default function ServicesPage() {
           </motion.div>
 
           <motion.div {...staggerContainer} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service, i) => {
+            {(SERVICES || []).map((service, i) => {
               const Icon = iconMap[service.icon] || Home;
               return (
                 <motion.div key={service.id} {...fadeInUp}>

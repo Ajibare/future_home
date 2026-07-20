@@ -128,6 +128,7 @@ export interface Property {
   agent: Agent;
   isFeatured: boolean;
   isVerified: boolean;
+  isActive?: boolean;
   views: number;
   favoritesCount: number;
   createdAt: string;
@@ -222,6 +223,19 @@ export interface User {
   updatedAt: string;
 }
 
+export interface SiteMessage {
+  id: string;
+  type: "contact" | "newsletter";
+  name?: string;
+  email: string;
+  phone?: string;
+  subject?: string;
+  message?: string;
+  status: "new" | "read" | "archived";
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Inquiry {
   id: string;
   propertyId: string;
@@ -249,6 +263,7 @@ export interface Testimonial {
   propertyId?: string;
   propertyTitle?: string;
   createdAt: string;
+  isActive?: boolean;
 }
 
 export interface BlogPost {
@@ -310,6 +325,7 @@ export interface TeamMember {
   twitter?: string;
   instagram?: string;
   order: number;
+  isActive?: boolean;
 }
 
 export interface Service {
@@ -321,6 +337,8 @@ export interface Service {
   features: string[];
   ctaText?: string;
   ctaLink?: string;
+  order?: number;
+  isActive?: boolean;
 }
 
 export interface Statistic {
@@ -339,9 +357,17 @@ export interface FAQ {
   category?: string;
 }
 
+export interface WhyChooseUsItem {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
 export interface ContactInfo {
   address: string;
   phone: string;
+  phone2?: string;
   email: string;
   whatsapp?: string;
   hours: {
@@ -356,6 +382,8 @@ export interface ContactInfo {
     linkedin?: string;
     youtube?: string;
   };
+  statistics?: Statistic[];
+  whyChooseUs?: WhyChooseUsItem[];
 }
 
 export interface NavigationItem {

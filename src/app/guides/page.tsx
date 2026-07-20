@@ -9,7 +9,8 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { COMPANY_INFO } from "@/constants";
+import { COMPANY_INFO as DEFAULT_COMPANY_INFO } from "@/constants";
+import { useSiteSettings } from "@/hooks/use-content";
 
 type Section = { id: string; title: string; body: string[] };
 
@@ -128,6 +129,8 @@ function TableOfContents() {
 }
 
 export default function BuyersGuidePage() {
+  const { data: settings } = useSiteSettings();
+  const COMPANY_INFO = settings ?? DEFAULT_COMPANY_INFO;
   return (
     <div className="overflow-hidden pt-24">
       <section className="relative py-20 md:py-28">

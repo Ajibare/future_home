@@ -7,12 +7,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PropertyCard } from "@/components/property/property-card";
 import { usePropertyStore } from "@/stores";
-import { MOCK_PROPERTIES } from "@/services/mock-data";
+import { useProperties } from "@/hooks/use-content";
 import { toast } from "sonner";
 
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = usePropertyStore();
-  const wishlistProperties = MOCK_PROPERTIES.filter((p) => wishlist.includes(p.id));
+  const { data: allProperties } = useProperties();
+  const wishlistProperties = (allProperties || []).filter((p) => wishlist.includes(p.id));
 
   const handleRemove = (id: string) => {
     removeFromWishlist(id);

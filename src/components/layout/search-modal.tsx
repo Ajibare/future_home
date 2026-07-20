@@ -7,12 +7,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/stores";
-import { MOCK_PROPERTIES, MOCK_BLOG_POSTS } from "@/services/mock-data";
+import { useProperties, useBlogPosts } from "@/hooks/use-content";
 
 export function SearchModal() {
   const { isSearchModalOpen, setSearchModalOpen } = useUIStore();
   const [query, setQuery] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const { data: allProperties } = useProperties();
+  const { data: allPosts } = useBlogPosts();
 
   React.useEffect(() => {
     if (isSearchModalOpen) {
@@ -32,11 +34,11 @@ export function SearchModal() {
   }, [isSearchModalOpen, setSearchModalOpen]);
 
   const filteredProperties = query.length >= 2
-    ? MOCK_PROPERTIES.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()) || p.location.city.toLowerCase().includes(query.toLowerCase()) || p.location.neighborhood?.toLowerCase().includes(query.toLowerCase())).slice(0, 5)
+    ? (allProperties || []).filter((p) => p.title.toLowerCase().includes(query.toLowerCase()) || p.location.city.toLowerCase().includes(query.toLowerCase()) || p.location.neighborhood?.toLowerCase().includes(query.toLowerCase())).slice(0, 5)
     : [];
 
   const filteredPosts = query.length >= 2
-    ? MOCK_BLOG_POSTS.filter((p) => p.title.toLowerCase().includes(query.toLowerCase())).slice(0, 3)
+    ? (allPosts || []).filter((p) => p.title.toLowerCase().includes(query.toLowerCase())).slice(0, 3)
     : [];
 
   const popularSearches = ["Lekki", "Victoria Island", "Apartment", "Duplex", "Land", "Commercial"];

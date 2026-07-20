@@ -11,20 +11,25 @@ import { cn, formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { Badge } from "@/components/ui/badge";
-import { MOCK_BLOG_POSTS } from "@/services/mock-data";
+import { useBlogPost, useBlogPosts } from "@/hooks/use-content";
 import { toast } from "sonner";
-
-function getPost(slug: string) {
-  return MOCK_BLOG_POSTS.find((p) => p.slug === slug);
-}
 
 export default function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = React.use(params);
-  const post = getPost(slug);
+  const { data: post, isLoading, isError } = useBlogPost(slug);
+  const { data: allPosts } = useBlogPosts();
 
-  if (!post) notFound();
+  if (isError) notFound();
 
-  const relatedPosts = MOCK_BLOG_POSTS.filter((p) => p.id !== post.id && p.category.id === post.category.id).slice(0, 3);
+  if (isLoading || !post) {
+    return (
+      <div className="min-h-screen pt-24 flex items-center justify-center" style={{ background: "var(--bg)" }}>
+        <div className="animate-pulse h-96 w-full max-w-4xl rounded-2xl mx-4" style={{ background: "var(--surface-hover)" }} />
+      </div>
+    );
+  }
+
+  const relatedPosts = (allPosts || []).filter((p) => p.id !== post.id && p.category.id === post.category.id).slice(0, 3);
 
   const handleShare = async () => {
     const url = window.location.href;

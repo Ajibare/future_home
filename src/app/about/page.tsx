@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SocialIcon } from "@/components/ui/social-icon";
-import { COMPANY_INFO, STATISTICS, TEAM_MEMBERS, WHY_CHOOSE_US } from "@/constants";
+import { useTeamMembers, useSiteSettings } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -26,6 +26,10 @@ const staggerContainer = {
 };
 
 export default function AboutPage() {
+  const { data: teamMembers } = useTeamMembers();
+  const { data: settings } = useSiteSettings();
+  const STATISTICS = settings?.statistics || [];
+  const WHY_CHOOSE_US = settings?.whyChooseUs || [];
   return (
     <div className="overflow-hidden pt-24">
       {/* Hero */}
@@ -155,7 +159,7 @@ export default function AboutPage() {
             <p className="text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>The experienced professionals driving our vision forward.</p>
           </motion.div>
           <motion.div {...staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TEAM_MEMBERS.map((member) => (
+            {(teamMembers || []).map((member) => (
               <motion.div key={member.id} {...fadeInUp}>
                 <motion.div whileHover={{ y: -6 }} className="h-full rounded-2xl overflow-hidden transition-all duration-300 group" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                   <div className="relative aspect-[4/5] overflow-hidden">

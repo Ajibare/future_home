@@ -14,7 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { toast } from "sonner";
-import { COMPANY_INFO } from "@/constants";
+import { COMPANY_INFO as DEFAULT_COMPANY_INFO } from "@/constants";
+import { useSiteSettings } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -44,6 +45,8 @@ const locations = [
 ];
 
 export default function ValuationPage() {
+  const { data: settings } = useSiteSettings();
+  const COMPANY_INFO = settings ?? DEFAULT_COMPANY_INFO;
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
