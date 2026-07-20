@@ -5,19 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, Clock, Eye, Heart, Share2, User, Calendar, Tag, Globe, MessageCircle, ExternalLink } from "lucide-react";
-
-const SocialIcon = ({ type, className }: { type: string; className?: string }) => {
-  switch (type) {
-    case "facebook": return <Globe className={className} />;
-    case "twitter": return <MessageCircle className={className} />;
-    case "linkedin": return <ExternalLink className={className} />;
-    default: return <Globe className={className} />;
-  }
-};
+import { ArrowLeft, Clock, Eye, Heart, Share2, User, Calendar, Tag } from "lucide-react";
 
 import { cn, formatDate } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { SocialIcon } from "@/components/ui/social-icon";
 import { Badge } from "@/components/ui/badge";
 import { MOCK_BLOG_POSTS } from "@/services/mock-data";
 import { toast } from "sonner";

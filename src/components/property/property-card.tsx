@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Heart, Share2, ArrowUpDown, Bed, Bath, Maximize, MapPin, Eye } from "lucide-react";
+import { Heart, Share2, Columns2, Bed, Bath, Maximize, MapPin, Eye } from "lucide-react";
 import { cn, formatCurrency, truncate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { usePropertyStore } from "@/stores";
@@ -105,7 +105,7 @@ export function PropertyCard({ property, className, variant = "default" }: Prope
                 <Share2 className="h-4 w-4" />
               </button>
               <button onClick={handleCompare} className="flex items-center justify-center w-9 h-9 rounded-full backdrop-blur-md text-white hover:bg-white/50 transition-all" style={{ background: "rgba(255,255,255,0.3)" }} aria-label="Compare property">
-                <ArrowUpDown className="h-4 w-4" />
+                <Columns2 className="h-4 w-4" />
               </button>
             </div>
           </div>

@@ -5,24 +5,14 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Phone, Mail, MapPin, Clock, Send, MessageCircle, CheckCircle2, Globe, ExternalLink, Play } from "lucide-react";
-
-const SocialIcon = ({ type, className }: { type: string; className?: string }) => {
-  switch (type) {
-    case "facebook": return <Globe className={className} />;
-    case "twitter": return <MessageCircle className={className} />;
-    case "instagram": return <ExternalLink className={className} />;
-    case "linkedin": return <Globe className={className} />;
-    case "youtube": return <Play className={className} />;
-    default: return <Globe className={className} />;
-  }
-};
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle, CheckCircle2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { SocialIcon } from "@/components/ui/social-icon";
 import { COMPANY_INFO } from "@/constants";
 import { toast } from "sonner";
 

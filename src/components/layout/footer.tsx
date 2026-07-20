@@ -2,24 +2,14 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, Clock, ArrowRight, Send, Globe, MessageCircle, ExternalLink, Play } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, ArrowRight, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Logo } from "@/components/ui/logo";
+import { SocialIcon } from "@/components/ui/social-icon";
 import { COMPANY_INFO, FOOTER_LINKS } from "@/constants";
 import { toast } from "sonner";
-
-const SocialIcon = ({ type, className }: { type: string; className?: string }) => {
-  switch (type) {
-    case "facebook": return <Globe className={className} />;
-    case "twitter": return <MessageCircle className={className} />;
-    case "instagram": return <ExternalLink className={className} />;
-    case "linkedin": return <Globe className={className} />;
-    case "youtube": return <Play className={className} />;
-    default: return <Globe className={className} />;
-  }
-};
 
 export function Footer() {
   const [email, setEmail] = React.useState("");

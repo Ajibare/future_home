@@ -4,20 +4,12 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Award, Target, Eye, CheckCircle2, Star, Mail, Phone, Heart, Globe, MessageCircle, ExternalLink, Play } from "lucide-react";
-
-const SocialIcon = ({ type, className }: { type: string; className?: string }) => {
-  switch (type) {
-    case "linkedin": return <Globe className={className} />;
-    case "twitter": return <MessageCircle className={className} />;
-    case "instagram": return <ExternalLink className={className} />;
-    default: return <Globe className={className} />;
-  }
-};
+import { ArrowRight, Award, Target, Eye, CheckCircle2, Star, Mail, Phone, Heart } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SocialIcon } from "@/components/ui/social-icon";
 import { COMPANY_INFO, STATISTICS, TEAM_MEMBERS, WHY_CHOOSE_US } from "@/constants";
 
 const fadeInUp = {
