@@ -147,7 +147,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-20 md:py-28" style={{ background: "var(--bg-alt)" }}>
+      <section id="team" className="py-20 md:py-28 scroll-mt-24" style={{ background: "var(--bg-alt)" }}>
         <div className="container">
           <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-12">
             <Badge variant="primary" className="mb-4">Our Team</Badge>
