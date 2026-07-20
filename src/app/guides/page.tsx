@@ -2,13 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   CheckCircle2, Phone, Mail, ArrowRight, Clock, User, Eye, Calendar,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { COMPANY_INFO } from "@/constants";
+import { COMPANY_INFO as DEFAULT_COMPANY_INFO } from "@/constants";
+import { useSiteSettings } from "@/hooks/use-content";
 
 type Section = { id: string; title: string; body: string[] };
 
@@ -127,14 +129,19 @@ function TableOfContents() {
 }
 
 export default function BuyersGuidePage() {
+  const { data: settings } = useSiteSettings();
+  const COMPANY_INFO = settings ?? DEFAULT_COMPANY_INFO;
   return (
     <div className="overflow-hidden pt-24">
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop"
             alt=""
-            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-dark-950/85 to-dark-900/70" />
         </div>

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   ArrowRight, Home, Key, Building2, TrendingUp, Hammer, Scale,
@@ -55,10 +56,13 @@ function ServicePage({
       {/* Hero */}
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=1080&fit=crop"
             alt={title}
-            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
@@ -96,11 +100,13 @@ function ServicePage({
               </p>
             </motion.div>
             <motion.div {...fadeInUp}>
-              <div className="rounded-2xl overflow-hidden">
-                <img
+              <div className="relative rounded-2xl overflow-hidden h-80">
+                <Image
                   src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
                   alt={title}
-                  className="w-full h-80 object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
                 />
               </div>
             </motion.div>
@@ -186,7 +192,7 @@ function ServicePage({
       {/* CTA */}
       <section className="py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="" fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,122,110,0.92), rgba(13,148,136,0.85))" }} />
         </div>
         <div className="container relative z-10">

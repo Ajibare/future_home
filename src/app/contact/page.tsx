@@ -5,25 +5,16 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Phone, Mail, MapPin, Clock, Send, MessageCircle, CheckCircle2, Globe, ExternalLink, Play } from "lucide-react";
-
-const SocialIcon = ({ type, className }: { type: string; className?: string }) => {
-  switch (type) {
-    case "facebook": return <Globe className={className} />;
-    case "twitter": return <MessageCircle className={className} />;
-    case "instagram": return <ExternalLink className={className} />;
-    case "linkedin": return <Globe className={className} />;
-    case "youtube": return <Play className={className} />;
-    default: return <Globe className={className} />;
-  }
-};
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle, CheckCircle2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { COMPANY_INFO } from "@/constants";
+import { SocialIcon } from "@/components/ui/social-icon";
+import { COMPANY_INFO as DEFAULT_COMPANY_INFO } from "@/constants";
+import { useSiteSettings } from "@/hooks/use-content";
 import { toast } from "sonner";
 
 const contactSchema = z.object({
@@ -44,6 +35,8 @@ const fadeInUp = {
 };
 
 export default function ContactPage() {
+  const { data: settings } = useSiteSettings();
+  const COMPANY_INFO_LIVE = settings ?? DEFAULT_COMPANY_INFO;
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>({
@@ -52,10 +45,20 @@ export default function ContactPage() {
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    reset();
-    setIsSubmitting(false);
+    try {
+      const res = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "contact", ...data }),
+      });
+      if (!res.ok) throw new Error("Failed to send message");
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      reset();
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -104,13 +107,13 @@ export default function ContactPage() {
               <div className="rounded-2xl p-6 shadow-soft" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <h3 className="font-semibold mb-4" style={{ color: "var(--text)" }}>Contact Information</h3>
                 <div className="space-y-4">
-                  <a href={`tel:${COMPANY_INFO.phone.replace(/\s/g, "")}`} className="flex items-start gap-4 p-3 rounded-xl transition-colors group" style={{ background: "transparent" }}>
+                  <a href={`tel:${COMPANY_INFO_LIVE.phone.replace(/\s/g, "")}`} className="flex items-start gap-4 p-3 rounded-xl transition-colors group" style={{ background: "transparent" }}>
                     <div className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0 transition-all" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
                       <Phone className="h-5 w-5" />
                     </div>
                     <div>
                       <p className="font-medium text-sm" style={{ color: "var(--text)" }}>Phone</p>
-                      <p className="text-sm" style={{ color: "var(--text-muted)" }}>{COMPANY_INFO.phone}</p>
+                      <p className="text-sm" style={{ color: "var(--text-muted)" }}>{COMPANY_INFO_LIVE.phone}</p>
                     </div>
                   </a>
                   <a href={`https://wa.me/2348088880708`} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-3 rounded-xl transition-colors group">
@@ -119,25 +122,25 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-medium text-sm" style={{ color: "var(--text)" }}>WhatsApp</p>
-                      <p className="text-sm" style={{ color: "var(--text-muted)" }}>{COMPANY_INFO.phone2}</p>
+                      <p className="text-sm" style={{ color: "var(--text-muted)" }}>{COMPANY_INFO_LIVE.phone2}</p>
                     </div>
                   </a>
-                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(COMPANY_INFO.address)}`} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-3 rounded-xl transition-colors group">
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(COMPANY_INFO_LIVE.address)}`} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-3 rounded-xl transition-colors group">
                     <div className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
                       <MapPin className="h-5 w-5" />
                     </div>
                     <div>
                       <p className="font-medium text-sm" style={{ color: "var(--text)" }}>Office Address</p>
-                      <p className="text-sm" style={{ color: "var(--text-muted)" }}>{COMPANY_INFO.address}</p>
+                      <p className="text-sm" style={{ color: "var(--text-muted)" }}>{COMPANY_INFO_LIVE.address}</p>
                     </div>
                   </a>
-                  <a href={`mailto:${COMPANY_INFO.email}`} className="flex items-start gap-4 p-3 rounded-xl transition-colors group">
+                  <a href={`mailto:${COMPANY_INFO_LIVE.email}`} className="flex items-start gap-4 p-3 rounded-xl transition-colors group">
                     <div className="flex items-center justify-center w-10 h-10 rounded-xl shrink-0" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
                       <Mail className="h-5 w-5" />
                     </div>
                     <div>
                       <p className="font-medium text-sm" style={{ color: "var(--text)" }}>Email</p>
-                      <p className="text-sm" style={{ color: "var(--text-muted)" }}>{COMPANY_INFO.email}</p>
+                      <p className="text-sm" style={{ color: "var(--text-muted)" }}>{COMPANY_INFO_LIVE.email}</p>
                     </div>
                   </a>
                 </div>
@@ -147,9 +150,9 @@ export default function ContactPage() {
                 <h3 className="font-semibold mb-4" style={{ color: "var(--text)" }}>Office Hours</h3>
                 <div className="space-y-3">
                   {[
-                    { day: "Monday - Friday", time: COMPANY_INFO.hours.weekdays },
-                    { day: "Saturday", time: COMPANY_INFO.hours.saturday },
-                    { day: "Sunday", time: COMPANY_INFO.hours.sunday },
+                    { day: "Monday - Friday", time: COMPANY_INFO_LIVE.hours.weekdays },
+                    { day: "Saturday", time: COMPANY_INFO_LIVE.hours.saturday },
+                    { day: "Sunday", time: COMPANY_INFO_LIVE.hours.sunday },
                   ].map((item) => (
                     <div key={item.day} className="flex items-center justify-between text-sm">
                       <span className="flex items-center gap-2" style={{ color: "var(--text-secondary)" }}>
@@ -165,7 +168,7 @@ export default function ContactPage() {
               <div className="rounded-2xl p-6 shadow-soft" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <h3 className="font-semibold mb-4" style={{ color: "var(--text)" }}>Follow Us</h3>
                 <div className="flex items-center gap-3">
-                  {Object.entries(COMPANY_INFO.social).map(([key, url]) => url && (
+                  {Object.entries(COMPANY_INFO_LIVE.social).map(([key, url]) => url && (
                     <a key={key} href={url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-11 h-11 rounded-xl transition-all" style={{ background: "var(--surface-hover)", color: "var(--text-secondary)", border: "1px solid var(--border)" }} aria-label={key}>
                       <SocialIcon type={key} className="h-5 w-5" />
                     </a>

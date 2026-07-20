@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Search, ArrowRight, Star, Shield, Award, TrendingUp, Home, Building, Building2, MapPin, ChevronRight, CheckCircle2, Phone, Eye } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
@@ -9,8 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { PropertyCard } from "@/components/property/property-card";
-import { MOCK_PROPERTIES, MOCK_TESTIMONIALS, MOCK_BLOG_POSTS } from "@/services/mock-data";
-import { COMPANY_INFO, STATISTICS, WHY_CHOOSE_US, SERVICES } from "@/constants";
+import { useProperties, useTestimonials, useBlogPosts, useServices, useSiteSettings } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -49,16 +49,24 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [searchType, setSearchType] = React.useState<"sale" | "rent">("sale");
 
-  const featuredProperties = MOCK_PROPERTIES.filter((p) => p.isFeatured).slice(0, 6);
-  const testimonials = MOCK_TESTIMONIALS;
-  const blogPosts = MOCK_BLOG_POSTS.slice(0, 3);
+  const { data: allProperties } = useProperties();
+  const { data: allTestimonials } = useTestimonials();
+  const { data: allBlogPosts } = useBlogPosts();
+  const { data: services } = useServices();
+  const { data: settings } = useSiteSettings();
+  const STATISTICS = settings?.statistics || [];
+  const WHY_CHOOSE_US = settings?.whyChooseUs || [];
+
+  const featuredProperties = (allProperties || []).filter((p) => p.isFeatured).slice(0, 6);
+  const testimonials = allTestimonials || [];
+  const blogPosts = (allBlogPosts || []).slice(0, 3);
 
   return (
     <div className="overflow-hidden">
       {/* Hero */}
       <section className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop" alt="Luxury property" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=1080&fit=crop" alt="Luxury property" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
         </div>
@@ -186,7 +194,7 @@ export default function HomePage() {
               <motion.div key={loc.name} {...fadeInUp}>
                 <Link href={`/properties?location=${loc.name}`}>
                   <motion.div whileHover={{ scale: 1.03 }} className="relative aspect-[4/3] rounded-2xl overflow-hidden group cursor-pointer">
-                    <img src={loc.image} alt={loc.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <Image src={loc.image} alt={loc.name} fill sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
                       <p className="font-semibold text-white text-lg">{loc.name}</p>
@@ -224,7 +232,7 @@ export default function HomePage() {
             </motion.div>
             <motion.div {...fadeInUp} className="relative">
               <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=1000&fit=crop" alt="Luxury interior" className="w-full h-full object-cover" />
+                <Image src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=1000&fit=crop" alt="Luxury interior" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.6 }} className="absolute -bottom-6 -left-6 rounded-2xl p-5 shadow-large" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <div className="flex items-center gap-3">
@@ -247,7 +255,7 @@ export default function HomePage() {
         <div className="container">
           <SectionHeader badge="Our Services" title="Comprehensive Real Estate Solutions" description="From buying and selling to property management, we offer end-to-end services." />
           <motion.div {...staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service) => (
+            {(services || []).map((service) => (
               <motion.div key={service.id} {...fadeInUp}>
                 <motion.div whileHover={{ y: -6 }} className="h-full p-6 rounded-2xl transition-all duration-300 group" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                   <div className="flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 mb-5" style={{ background: "var(--primary-light)", color: "var(--primary)" }}>
@@ -292,7 +300,7 @@ export default function HomePage() {
                     &ldquo;{testimonial.content}&rdquo;
                   </p>
                   <div className="flex items-center gap-3 pt-4" style={{ borderTop: "1px solid var(--border)" }}>
-                    <img src={testimonial.image} alt={testimonial.name} className="w-10 h-10 rounded-full object-cover" />
+                    <Image src={testimonial.image} alt={testimonial.name} width={40} height={40} className="w-10 h-10 rounded-full object-cover" />
                     <div>
                       <p className="font-semibold text-sm" style={{ color: "var(--text)" }}>{testimonial.name}</p>
                       <p className="text-xs" style={{ color: "var(--text-muted)" }}>{testimonial.role}</p>
@@ -315,7 +323,7 @@ export default function HomePage() {
                 <Link href={`/blog/${post.slug}`}>
                   <motion.article whileHover={{ y: -6 }} className="group h-full rounded-2xl overflow-hidden transition-all duration-300" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                     <div className="relative aspect-[16/10] overflow-hidden">
-                      <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <Image src={post.coverImage} alt={post.title} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
                       <div className="absolute top-3 left-3">
                         <Badge variant="primary">{post.category.name}</Badge>
                       </div>
@@ -331,7 +339,7 @@ export default function HomePage() {
                       <h3 className="font-semibold text-base line-clamp-2 mb-2 transition-colors group-hover:text-[var(--primary)]" style={{ color: "var(--text)" }}>{post.title}</h3>
                       <p className="text-sm line-clamp-2" style={{ color: "var(--text-muted)" }}>{post.excerpt}</p>
                       <div className="flex items-center gap-2 mt-4 pt-4" style={{ borderTop: "1px solid var(--border)" }}>
-                        <img src={post.author.image} alt={post.author.name} className="w-7 h-7 rounded-full object-cover" />
+                        <Image src={post.author.image} alt={post.author.name} width={28} height={28} className="w-7 h-7 rounded-full object-cover" />
                         <span className="text-xs" style={{ color: "var(--text-secondary)" }}>{post.author.name}</span>
                       </div>
                     </div>
@@ -349,7 +357,7 @@ export default function HomePage() {
       {/* CTA */}
       <section className="py-20 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="Luxury property" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&h=800&fit=crop" alt="Luxury property" fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(15,122,110,0.9), rgba(13,148,136,0.8))" }} />
         </div>
         <div className="container relative z-10">

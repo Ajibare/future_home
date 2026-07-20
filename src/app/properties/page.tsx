@@ -13,7 +13,7 @@ import { Select } from "@/components/ui/select";
 import { PropertyCard } from "@/components/property/property-card";
 import { SkeletonPropertyGrid } from "@/components/ui/skeleton";
 import { Drawer } from "@/components/ui/drawer";
-import { MOCK_PROPERTIES } from "@/services/mock-data";
+import { useProperties } from "@/hooks/use-content";
 import type { SearchFilters, SortOption, PropertyType, ListingType } from "@/types";
 
 const propertyTypes: { value: string; label: string }[] = [
@@ -38,9 +38,9 @@ const sortOptions = [
 
 function PropertiesContent() {
   const searchParams = useSearchParams();
+  const { data: allProperties, isLoading } = useProperties();
   const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid");
   const [isFilterOpen, setIsFilterOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
   const [filters, setFilters] = React.useState<SearchFilters>({
     listingType: (searchParams.get("listingType") as ListingType) || "sale",
     propertyTypes: searchParams.get("type") ? [searchParams.get("type") as PropertyType] : undefined,
@@ -51,17 +51,12 @@ function PropertiesContent() {
     limit: 12,
   });
 
-  React.useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, []);
-
   const updateFilter = (key: keyof SearchFilters, value: unknown) => {
     setFilters((prev) => ({ ...prev, [key]: value, page: 1 }));
   };
 
   const filteredProperties = React.useMemo(() => {
-    let results = [...MOCK_PROPERTIES];
+    let results = [...(allProperties || [])];
     if (filters.listingType) results = results.filter((p) => p.listingType === filters.listingType);
     if (filters.propertyTypes?.length) results = results.filter((p) => filters.propertyTypes!.includes(p.type));
     if (filters.cities?.length) results = results.filter((p) => filters.cities!.some((c) => p.location.city.toLowerCase().includes(c.toLowerCase())));
@@ -77,7 +72,7 @@ function PropertiesContent() {
       default: break;
     }
     return results;
-  }, [filters]);
+  }, [filters, allProperties]);
 
   const FilterSidebar = () => (
     <div className="space-y-6">

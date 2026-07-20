@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Phone, Mail, Search, ChevronRight, Home, HelpCircle, ChevronDown,
@@ -9,7 +10,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { COMPANY_INFO } from "@/constants";
+import { COMPANY_INFO as DEFAULT_COMPANY_INFO } from "@/constants";
+import { useSiteSettings } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -199,6 +201,8 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
 }
 
 export default function FAQPage() {
+  const { data: settings } = useSiteSettings();
+  const COMPANY_INFO = settings ?? DEFAULT_COMPANY_INFO;
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const filteredData = React.useMemo(() => {
@@ -222,10 +226,13 @@ export default function FAQPage() {
     <div className="overflow-hidden pt-24">
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=800&fit=crop"
             alt=""
-            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-dark-950/85 to-dark-900/70" />
         </div>

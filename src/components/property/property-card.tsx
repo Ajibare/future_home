@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Heart, Share2, ArrowUpDown, Bed, Bath, Maximize, MapPin, Eye } from "lucide-react";
+import { Heart, Share2, Columns2, Bed, Bath, Maximize, MapPin, Eye } from "lucide-react";
 import { cn, formatCurrency, truncate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { usePropertyStore } from "@/stores";
@@ -62,7 +63,7 @@ export function PropertyCard({ property, className, variant = "default" }: Prope
       <Link href={`/properties/${property.id}`}>
         <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.2 }} className={cn("group flex gap-4 p-3 rounded-xl transition-all duration-300", className)} style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
           <div className="relative w-28 h-28 rounded-lg overflow-hidden shrink-0">
-            <img src={primaryImage.url} alt={primaryImage.alt} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            <Image src={primaryImage.url} alt={primaryImage.alt} fill sizes="112px" className="object-cover group-hover:scale-110 transition-transform duration-500" />
           </div>
           <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
             <div>
@@ -87,7 +88,7 @@ export function PropertyCard({ property, className, variant = "default" }: Prope
     <Link href={`/properties/${property.id}`}>
       <motion.div whileHover={{ y: -6 }} transition={{ duration: 0.3, ease: "easeOut" as const }} className={cn("group rounded-2xl overflow-hidden transition-all duration-300", className)} style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
         <div className="relative aspect-[4/3] overflow-hidden">
-          <img src={primaryImage.url} alt={primaryImage.alt} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
+          <Image src={primaryImage.url} alt={primaryImage.alt} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="absolute top-3 left-3 flex gap-2">
             <Badge variant={statusVariantMap[property.status]}>
@@ -104,7 +105,7 @@ export function PropertyCard({ property, className, variant = "default" }: Prope
                 <Share2 className="h-4 w-4" />
               </button>
               <button onClick={handleCompare} className="flex items-center justify-center w-9 h-9 rounded-full backdrop-blur-md text-white hover:bg-white/50 transition-all" style={{ background: "rgba(255,255,255,0.3)" }} aria-label="Compare property">
-                <ArrowUpDown className="h-4 w-4" />
+                <Columns2 className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -156,7 +157,7 @@ export function PropertyCard({ property, className, variant = "default" }: Prope
               )}
             </div>
             <div className="flex items-center gap-2">
-              <img src={property.agent.image} alt={property.agent.name} className="w-8 h-8 rounded-full object-cover" style={{ border: "2px solid var(--border)" }} />
+              <Image src={property.agent.image} alt={property.agent.name} width={32} height={32} className="w-8 h-8 rounded-full object-cover" style={{ border: "2px solid var(--border)" }} />
               <span className="text-xs hidden sm:block" style={{ color: "var(--text-muted)" }}>{property.agent.name.split(" ")[0]}</span>
             </div>
           </div>

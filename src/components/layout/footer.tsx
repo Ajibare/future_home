@@ -2,26 +2,19 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, Clock, ArrowRight, Send, Heart, Globe, MessageCircle, ExternalLink, Play } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, ArrowRight, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Logo } from "@/components/ui/logo";
+import { SocialIcon } from "@/components/ui/social-icon";
 import { COMPANY_INFO, FOOTER_LINKS } from "@/constants";
+import { useSiteSettings } from "@/hooks/use-content";
 import { toast } from "sonner";
 
-const SocialIcon = ({ type, className }: { type: string; className?: string }) => {
-  switch (type) {
-    case "facebook": return <Globe className={className} />;
-    case "twitter": return <MessageCircle className={className} />;
-    case "instagram": return <ExternalLink className={className} />;
-    case "linkedin": return <Globe className={className} />;
-    case "youtube": return <Play className={className} />;
-    default: return <Globe className={className} />;
-  }
-};
-
 export function Footer() {
+  const { data: settings } = useSiteSettings();
+  const info = settings ?? COMPANY_INFO;
   const [email, setEmail] = React.useState("");
   const [isSubscribing, setIsSubscribing] = React.useState(false);
 
@@ -29,10 +22,20 @@ export function Footer() {
     e.preventDefault();
     if (!email) return;
     setIsSubscribing(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    toast.success("Successfully subscribed to newsletter!");
-    setEmail("");
-    setIsSubscribing(false);
+    try {
+      const res = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "newsletter", email }),
+      });
+      if (!res.ok) throw new Error("Failed to subscribe");
+      toast.success("Successfully subscribed to newsletter!");
+      setEmail("");
+    } catch {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
   const currentYear = new Date().getFullYear();
@@ -55,23 +58,23 @@ export function Footer() {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-sm">
                 <MapPin className="h-4 w-4 shrink-0" style={{ color: "var(--primary)" }} />
-                <span>{COMPANY_INFO.address}</span>
+                <span>{info.address}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="h-4 w-4 shrink-0" style={{ color: "var(--primary)" }} />
-                <a href={`tel:${COMPANY_INFO.phone}`} className="transition-colors" style={{ color: "var(--text-secondary)" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-secondary)"}>{COMPANY_INFO.phone}</a>
+                <a href={`tel:${info.phone}`} className="transition-colors" style={{ color: "var(--text-secondary)" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-secondary)"}>{info.phone}</a>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="h-4 w-4 shrink-0" style={{ color: "var(--primary)" }} />
-                <a href={`mailto:${COMPANY_INFO.email}`} className="transition-colors" style={{ color: "var(--text-secondary)" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-secondary)"}>{COMPANY_INFO.email}</a>
+                <a href={`mailto:${info.email}`} className="transition-colors" style={{ color: "var(--text-secondary)" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-secondary)"}>{info.email}</a>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Clock className="h-4 w-4 shrink-0" style={{ color: "var(--primary)" }} />
-                <span>Mon-Fri: {COMPANY_INFO.hours.weekdays}</span>
+                <span>Mon-Fri: {info.hours.weekdays}</span>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              {Object.entries(COMPANY_INFO.social).map(([key, url]) => url && (
+              {Object.entries(info.social).map(([key, url]) => url && (
                 <a key={key} href={url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text-secondary)" }} aria-label={key}>
                   <SocialIcon type={key} className="h-4 w-4" />
                 </a>
@@ -142,12 +145,6 @@ export function Footer() {
               <Link key={link.label} href={link.href} className="text-xs transition-colors" style={{ color: "var(--text-muted)" }}>{link.label}</Link>
             ))}
           </div>
-          <a href="https://sapok.vercel.app/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs transition-all duration-200" style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--text-secondary)" }}>
-            <Heart className="h-3 w-3" style={{ color: "var(--primary)" }} />
-            <span>Made in Lagos</span>
-            <span style={{ color: "var(--text-muted)" }}>·</span>
-            <span style={{ color: "var(--primary)", fontWeight: 500 }}>Developed by SAPOK</span>
-          </a>
         </div>
       </div>
     </footer>

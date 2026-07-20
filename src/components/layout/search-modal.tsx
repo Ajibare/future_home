@@ -4,14 +4,17 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/stores";
-import { MOCK_PROPERTIES, MOCK_BLOG_POSTS } from "@/services/mock-data";
+import { useProperties, useBlogPosts } from "@/hooks/use-content";
 
 export function SearchModal() {
   const { isSearchModalOpen, setSearchModalOpen } = useUIStore();
   const [query, setQuery] = React.useState("");
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const { data: allProperties } = useProperties();
+  const { data: allPosts } = useBlogPosts();
 
   React.useEffect(() => {
     if (isSearchModalOpen) {
@@ -31,11 +34,11 @@ export function SearchModal() {
   }, [isSearchModalOpen, setSearchModalOpen]);
 
   const filteredProperties = query.length >= 2
-    ? MOCK_PROPERTIES.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()) || p.location.city.toLowerCase().includes(query.toLowerCase()) || p.location.neighborhood?.toLowerCase().includes(query.toLowerCase())).slice(0, 5)
+    ? (allProperties || []).filter((p) => p.title.toLowerCase().includes(query.toLowerCase()) || p.location.city.toLowerCase().includes(query.toLowerCase()) || p.location.neighborhood?.toLowerCase().includes(query.toLowerCase())).slice(0, 5)
     : [];
 
   const filteredPosts = query.length >= 2
-    ? MOCK_BLOG_POSTS.filter((p) => p.title.toLowerCase().includes(query.toLowerCase())).slice(0, 3)
+    ? (allPosts || []).filter((p) => p.title.toLowerCase().includes(query.toLowerCase())).slice(0, 3)
     : [];
 
   const popularSearches = ["Lekki", "Victoria Island", "Apartment", "Duplex", "Land", "Commercial"];
@@ -70,7 +73,7 @@ export function SearchModal() {
                       <p className="text-xs uppercase tracking-wider font-medium mb-2" style={{ color: "var(--text-muted)" }}>Properties</p>
                       {filteredProperties.map((property) => (
                         <Link key={property.id} href={`/properties/${property.id}`} onClick={() => setSearchModalOpen(false)} className="flex items-center gap-3 p-3 rounded-xl transition-colors group">
-                          <img src={property.images[0].url} alt={property.title} className="w-14 h-12 rounded-lg object-cover" />
+                          <Image src={property.images[0].url} alt={property.title} width={56} height={48} className="w-14 h-12 rounded-lg object-cover" />
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium truncate" style={{ color: "var(--text)" }}>{property.title}</p>
                             <p className="text-xs flex items-center gap-1" style={{ color: "var(--text-muted)" }}><MapPin className="h-3 w-3" />{property.location.neighborhood}, {property.location.city}</p>
@@ -85,7 +88,7 @@ export function SearchModal() {
                       <p className="text-xs uppercase tracking-wider font-medium mb-2" style={{ color: "var(--text-muted)" }}>Articles</p>
                       {filteredPosts.map((post) => (
                         <Link key={post.id} href={`/blog/${post.slug}`} onClick={() => setSearchModalOpen(false)} className="flex items-center gap-3 p-3 rounded-xl transition-colors group">
-                          <img src={post.coverImage} alt={post.title} className="w-14 h-12 rounded-lg object-cover" />
+                          <Image src={post.coverImage} alt={post.title} width={56} height={48} className="w-14 h-12 rounded-lg object-cover" />
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium truncate" style={{ color: "var(--text)" }}>{post.title}</p>
                             <p className="text-xs" style={{ color: "var(--text-muted)" }}>{post.readTime} min read</p>

@@ -2,22 +2,15 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Award, Target, Eye, CheckCircle2, Star, Mail, Phone, Heart, Globe, MessageCircle, ExternalLink, Play } from "lucide-react";
-
-const SocialIcon = ({ type, className }: { type: string; className?: string }) => {
-  switch (type) {
-    case "linkedin": return <Globe className={className} />;
-    case "twitter": return <MessageCircle className={className} />;
-    case "instagram": return <ExternalLink className={className} />;
-    default: return <Globe className={className} />;
-  }
-};
+import { ArrowRight, Award, Target, Eye, CheckCircle2, Star, Mail, Phone, Heart } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { COMPANY_INFO, STATISTICS, TEAM_MEMBERS, WHY_CHOOSE_US } from "@/constants";
+import { SocialIcon } from "@/components/ui/social-icon";
+import { useTeamMembers, useSiteSettings } from "@/hooks/use-content";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -33,12 +26,16 @@ const staggerContainer = {
 };
 
 export default function AboutPage() {
+  const { data: teamMembers } = useTeamMembers();
+  const { data: settings } = useSiteSettings();
+  const STATISTICS = settings?.statistics || [];
+  const WHY_CHOOSE_US = settings?.whyChooseUs || [];
   return (
     <div className="overflow-hidden pt-24">
       {/* Hero */}
       <section className="relative py-20 md:py-28">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=800&fit=crop" alt="" className="w-full h-full object-cover" />
+          <Image src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&h=800&fit=crop" alt="" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
         <div className="container relative z-10">
@@ -66,8 +63,8 @@ export default function AboutPage() {
               </div>
             </motion.div>
             <motion.div {...fadeInUp} className="relative">
-              <div className="rounded-2xl overflow-hidden aspect-[4/5]">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop" alt="Our office" className="w-full h-full object-cover" />
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
+                <Image src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=1000&fit=crop" alt="Our office" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
               </div>
               <div className="absolute -bottom-6 -right-6 rounded-2xl p-5 shadow-large" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <div className="flex items-center gap-3">
@@ -154,7 +151,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="py-20 md:py-28" style={{ background: "var(--bg-alt)" }}>
+      <section id="team" className="py-20 md:py-28 scroll-mt-24" style={{ background: "var(--bg-alt)" }}>
         <div className="container">
           <motion.div {...fadeInUp} className="text-center max-w-2xl mx-auto mb-12">
             <Badge variant="primary" className="mb-4">Our Team</Badge>
@@ -162,11 +159,17 @@ export default function AboutPage() {
             <p className="text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>The experienced professionals driving our vision forward.</p>
           </motion.div>
           <motion.div {...staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TEAM_MEMBERS.map((member) => (
+            {(teamMembers || []).map((member) => (
               <motion.div key={member.id} {...fadeInUp}>
                 <motion.div whileHover={{ y: -6 }} className="h-full rounded-2xl overflow-hidden transition-all duration-300 group" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                   <div className="relative aspect-[4/5] overflow-hidden">
-                    <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
                       {member.linkedin && <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-full text-white hover:bg-white/40 transition-all" style={{ background: "rgba(255,255,255,0.2)", backdropFilter: "blur(4px)" }} aria-label="LinkedIn"><SocialIcon type="linkedin" className="h-4 w-4" /></a>}

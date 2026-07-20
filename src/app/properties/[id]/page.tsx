@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -15,30 +16,34 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PropertyCard } from "@/components/property/property-card";
 import { GoogleMap } from "@/components/ui/google-map";
-import { MOCK_PROPERTIES } from "@/services/mock-data";
+import { useProperty, useProperties } from "@/hooks/use-content";
 import { usePropertyStore } from "@/stores";
 import { toast } from "sonner";
-import type { Property } from "@/types";
-
-function getProperty(id: string): Property | undefined {
-  return MOCK_PROPERTIES.find((p) => p.id === id);
-}
 
 export default function PropertyDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
-  const property = getProperty(id);
+  const { data: property, isLoading, isError } = useProperty(id);
+  const { data: allProperties } = useProperties();
   const [currentImage, setCurrentImage] = React.useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("overview");
   const { toggleWishlist, isInWishlist, addToCompare, isInCompare } = usePropertyStore();
 
-  if (!property) {
+  if (isError) {
     notFound();
+  }
+
+  if (isLoading || !property) {
+    return (
+      <div className="min-h-screen pt-24 flex items-center justify-center" style={{ background: "var(--bg)" }}>
+        <div className="animate-pulse h-96 w-full max-w-4xl rounded-2xl mx-4" style={{ background: "var(--surface-hover)" }} />
+      </div>
+    );
   }
 
   const isInWishlist_ = isInWishlist(property.id);
   const isInCompare_ = isInCompare(property.id);
-  const similarProperties = MOCK_PROPERTIES.filter((p) => p.id !== property.id && (p.category === property.category || p.type === property.type)).slice(0, 4);
+  const similarProperties = (allProperties || []).filter((p) => p.id !== property.id && (p.category === property.category || p.type === property.type)).slice(0, 4);
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -71,7 +76,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             {/* Image Gallery */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="relative rounded-2xl overflow-hidden">
               <div className="relative aspect-[16/10] cursor-pointer" onClick={() => setIsLightboxOpen(true)}>
-                <img src={property.images[currentImage].url} alt={property.images[currentImage].alt} className="w-full h-full object-cover" />
+                <Image src={property.images[currentImage].url} alt={property.images[currentImage].alt} fill priority sizes="(min-width: 1024px) 66vw, 100vw" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                 <div className="absolute top-4 left-4 flex gap-2">
                   <Badge variant={property.status === "for-sale" ? "primary" : "info"} className="text-sm px-3 py-1.5">
@@ -100,8 +105,8 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             {/* Thumbnail Strip */}
             <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
               {property.images.map((img, i) => (
-                <button key={img.id} onClick={() => setCurrentImage(i)} className={cn("shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all", i === currentImage ? "border-primary-500" : "border-transparent opacity-60 hover:opacity-100")}>
-                  <img src={img.url} alt={img.alt} className="w-full h-full object-cover" />
+                <button key={img.id} onClick={() => setCurrentImage(i)} className={cn("relative shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all", i === currentImage ? "border-primary-500" : "border-transparent opacity-60 hover:opacity-100")}>
+                  <Image src={img.url} alt={img.alt} fill sizes="80px" className="object-cover" />
                 </button>
               ))}
             </div>
@@ -237,7 +242,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
               <div className="rounded-2xl p-6 shadow-soft" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
                 <h3 className="font-semibold mb-4" style={{ color: "var(--text)" }}>Listed by</h3>
                 <div className="flex items-center gap-3 mb-4">
-                  <img src={property.agent.image} alt={property.agent.name} className="w-14 h-14 rounded-xl object-cover" />
+                  <Image src={property.agent.image} alt={property.agent.name} width={56} height={56} className="w-14 h-14 rounded-xl object-cover" />
                   <div>
                     <p className="font-semibold" style={{ color: "var(--text)" }}>{property.agent.name}</p>
                     <p className="text-sm" style={{ color: "var(--text-muted)" }}>{property.agent.title}</p>
@@ -293,7 +298,9 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white">
               <ChevronRight className="h-10 w-10" />
             </button>
-            <img src={property.images[currentImage].url} alt={property.images[currentImage].alt} className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg" />
+            <div className="relative w-[90vw] h-[85vh]">
+              <Image src={property.images[currentImage].url} alt={property.images[currentImage].alt} fill sizes="90vw" className="object-contain rounded-lg" />
+            </div>
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 text-sm">
               {currentImage + 1} / {property.images.length}
             </div>
