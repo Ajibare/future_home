@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Menu } from "lucide-react";
 import { AdminSidebar, AdminSidebarClose } from "@/components/admin/sidebar";
+import { NotificationBell } from "@/components/admin/notification-bell";
 import { ThemeSwitcher } from "@/components/ui/theme-toggle";
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
@@ -35,7 +36,8 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
             <Menu className="h-5 w-5" />
           </button>
           <span className="hidden lg:block text-sm font-medium" style={{ color: "var(--text-muted)" }}>Admin Control Board</span>
-          <div className="flex items-center gap-3 ml-auto">
+          <div className="flex items-center gap-2 sm:gap-3 ml-auto">
+            <NotificationBell />
             <ThemeSwitcher />
           </div>
         </header>
