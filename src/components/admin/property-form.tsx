@@ -105,17 +105,17 @@ export function PropertyForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!value.title.trim()) return toast.error("Title is required");
+    // if (!value.title.trim()) return toast.error("Title is required");
     // if (!value.location.city.trim()) return toast.error("City is required");
     // if (!value.agent.name.trim() || !value.agent.email.trim()) return toast.error("Agent name and email are required");
-    if (value.price <= 0) return toast.error("Price must be greater than 0");
+    // if (value.price <= 0) return toast.error("Price must be greater than 0");
     await onSubmit(value);
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 pb-20">
       <Section title="Basic Information">
-        <Input label="Title" value={value.title} onChange={(e) => update("title", e.target.value)} required />
+        <Input label="Title" value={value.title} onChange={(e) => update("title", e.target.value)} />
         <Textarea label="Short Description" value={value.shortDescription} onChange={(e) => update("shortDescription", e.target.value)} hint="Shown in property cards" />
         <Textarea label="Full Description" value={value.description} onChange={(e) => update("description", e.target.value)} className="min-h-[160px]" />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -125,7 +125,7 @@ export function PropertyForm({
           <Select label="Status" options={STATUS_OPTIONS} value={value.status} onChange={(v) => update("status", v as PropertyFormValue["status"])} />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Input label="Price (NGN)" type="number" min={0} value={value.price} onChange={(e) => update("price", Number(e.target.value))} required />
+          <Input label="Price (NGN)" type="number" min={0} value={value.price} onChange={(e) => update("price", Number(e.target.value))} />
           <Input label="Currency" value={value.currency} onChange={(e) => update("currency", e.target.value)} />
         </div>
         <div className="flex flex-wrap gap-6 pt-1">

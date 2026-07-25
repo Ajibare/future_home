@@ -45,8 +45,8 @@ const FeaturesSchema = new Schema(
 
 const ImageSchema = new Schema(
   {
-    id: { type: String, required: true },
-    url: { type: String, required: true },
+    id: { type: String, default: "" },
+    url: { type: String, default: "" },
     alt: { type: String, default: "" },
     isPrimary: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
@@ -56,11 +56,11 @@ const ImageSchema = new Schema(
 
 const AgentSchema = new Schema(
   {
-    id: { type: String, required: true },
-    name: { type: String, required: true },
+    id: { type: String, default: "" },
+    name: { type: String, default: "" },
     title: { type: String, default: "Agent" },
-    email: { type: String, required: true },
-    phone: { type: String, required: true },
+    email: { type: String, default: "" },
+    phone: { type: String, default: "" },
     whatsapp: String,
     image: { type: String, default: "" },
     bio: { type: String, default: "" },
@@ -105,25 +105,24 @@ const DocumentSchema = new Schema(
 
 const PropertySchema = new Schema(
   {
-    title: { type: String, required: true },
+    title: { type: String, default: "" },
     description: { type: String, default: "" },
     shortDescription: { type: String, default: "" },
     type: {
       type: String,
       enum: ["apartment", "house", "duplex", "townhouse", "penthouse", "villa", "commercial", "land", "office", "retail", "warehouse"],
-      required: true,
     },
     status: { type: String, enum: ["for-sale", "for-rent", "sold", "rented", "off-market"], default: "for-sale" },
     category: { type: String, enum: ["residential", "commercial", "land", "luxury"], default: "residential" },
-    listingType: { type: String, enum: ["sale", "rent"], required: true },
-    price: { type: Number, required: true },
+    listingType: { type: String, enum: ["sale", "rent"] },
+    price: { type: Number, default: 0 },
     pricePerSqFt: Number,
     currency: { type: String, default: "NGN" },
-    location: { type: LocationSchema, required: true },
+    location: { type: LocationSchema, default: () => ({}) },
     features: { type: FeaturesSchema, default: () => ({}) },
     amenities: { type: amenitiesSchemaDef, default: () => ({}) },
     images: { type: [ImageSchema], default: [] },
-    agent: { type: AgentSchema, required: true },
+    agent: { type: AgentSchema, default: () => ({}) },
     isFeatured: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false },
     isActive: { type: Boolean, default: true },
