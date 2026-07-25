@@ -385,8 +385,8 @@ export const SERVICES = [
 ] as const;
 
 export const STATISTICS = [
-  { id: "1", label: "Properties Sold", value: "2,500+", prefix: "", suffix: "+" },
-  { id: "2", label: "Happy Clients", value: "1,800+", prefix: "", suffix: "+" },
+  { id: "1", label: "Properties Sold", value: "2500", prefix: "", suffix: "+" },
+  { id: "2", label: "Happy Clients", value: "1800", prefix: "", suffix: "+" },
   { id: "3", label: "Years Experience", value: "15", prefix: "", suffix: "+" },
   { id: "4", label: "Awards Won", value: "25", prefix: "", suffix: "+" },
 ] as const;

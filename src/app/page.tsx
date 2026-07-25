@@ -36,11 +36,10 @@ function SectionHeader({ badge, title, description, align = "center" }: { badge?
 }
 
 function AnimatedCounter({ value, suffix = "", prefix = "" }: { value: string | number; suffix?: string; prefix?: string }) {
-  const numValue = typeof value === "string" ? parseInt(value.replace(/[^0-9]/g, "")) : value;
-  const displaySuffix = typeof value === "string" ? value.replace(/[0-9]/g, "") + suffix : suffix;
+  const numValue = typeof value === "string" ? parseInt(value.replace(/[^0-9]/g, "")) || 0 : value;
   return (
     <span className="font-display text-4xl md:text-5xl font-bold" style={{ color: "var(--primary)" }}>
-      {prefix}{numValue.toLocaleString()}{displaySuffix}
+      {prefix}{numValue.toLocaleString()}{suffix}
     </span>
   );
 }
