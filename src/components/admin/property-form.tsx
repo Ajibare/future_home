@@ -107,7 +107,7 @@ export function PropertyForm({
     e.preventDefault();
     if (!value.title.trim()) return toast.error("Title is required");
     if (!value.location.city.trim()) return toast.error("City is required");
-    if (!value.agent.name.trim() || !value.agent.email.trim()) return toast.error("Agent name and email are required");
+    // if (!value.agent.name.trim() || !value.agent.email.trim()) return toast.error("Agent name and email are required");
     if (value.price <= 0) return toast.error("Price must be greater than 0");
     await onSubmit(value);
   };
@@ -202,7 +202,7 @@ export function PropertyForm({
         </div>
       </Section>
 
-      <Section title="Listing Agent">
+      {/* <Section title="Listing Agent">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input label="Name" value={value.agent.name} onChange={(e) => updateNested("agent", { name: e.target.value })} required />
           <Input label="Title" value={value.agent.title} onChange={(e) => updateNested("agent", { title: e.target.value })} />
@@ -212,7 +212,7 @@ export function PropertyForm({
         </div>
         <ImageUploader label="Agent Photo" value={value.agent.image} onChange={(url) => updateNested("agent", { image: url })} folder="agents" aspect="aspect-square max-w-[160px]" />
         <Textarea label="Agent Bio" value={value.agent.bio} onChange={(e) => updateNested("agent", { bio: e.target.value })} />
-      </Section>
+      </Section> */}
 
       <div className="fixed bottom-0 left-0 right-0 lg:left-64 z-20 p-4 flex justify-end gap-3" style={{ background: "var(--surface)", borderTop: "1px solid var(--border)" }}>
         <Button type="button" variant="outline" onClick={() => router.back()}>Cancel</Button>
