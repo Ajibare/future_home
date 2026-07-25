@@ -106,7 +106,7 @@ export function PropertyForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!value.title.trim()) return toast.error("Title is required");
-    if (!value.location.city.trim()) return toast.error("City is required");
+    // if (!value.location.city.trim()) return toast.error("City is required");
     // if (!value.agent.name.trim() || !value.agent.email.trim()) return toast.error("Agent name and email are required");
     if (value.price <= 0) return toast.error("Price must be greater than 0");
     await onSubmit(value);
@@ -138,7 +138,7 @@ export function PropertyForm({
       <Section title="Location">
         <Input label="Address" value={value.location.address} onChange={(e) => updateNested("location", { address: e.target.value })} />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Input label="City" value={value.location.city} onChange={(e) => updateNested("location", { city: e.target.value })} required />
+          <Input label="City" value={value.location.city} onChange={(e) => updateNested("location", { city: e.target.value })} />
           <Input label="State" value={value.location.state} onChange={(e) => updateNested("location", { state: e.target.value })} />
           <Input label="Neighborhood" value={value.location.neighborhood || ""} onChange={(e) => updateNested("location", { neighborhood: e.target.value })} />
           <Input label="Landmark" value={value.location.landmark || ""} onChange={(e) => updateNested("location", { landmark: e.target.value })} />

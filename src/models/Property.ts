@@ -14,9 +14,9 @@ const amenitiesSchemaDef = Object.fromEntries(
 
 const LocationSchema = new Schema(
   {
-    address: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
+    address: { type: String, default: "" },
+    city: { type: String, default: "" },
+    state: { type: String, default: "" },
     country: { type: String, required: true, default: "Nigeria" },
     postalCode: String,
     coordinates: {
